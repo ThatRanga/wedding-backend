@@ -380,7 +380,7 @@
                   "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                   "aws:cdk:cloudformation:props": {
                     "imageId": {
-                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2022amikernel510x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
                     },
                     "instanceType": "t2.micro",
                     "iamInstanceProfile": {
@@ -452,17 +452,17 @@
               "version": "2.68.0"
             }
           },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.68.0"
             }
           },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "constructInfo": {
               "fqn": "aws-cdk-lib.Resource",
               "version": "2.68.0"

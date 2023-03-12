@@ -93,7 +93,7 @@ class ComputeStack(
                 .instanceType(InstanceType.of(InstanceClass.T2, InstanceSize.MICRO))
                 .machineImage(
                     MachineImage.latestAmazonLinux(
-                        AmazonLinuxImageProps.builder().generation(AmazonLinuxGeneration.AMAZON_LINUX_2022).build()
+                        AmazonLinuxImageProps.builder().generation(AmazonLinuxGeneration.AMAZON_LINUX_2).build()
                     )
                 )
                 .userData(UserData.custom(userData))
