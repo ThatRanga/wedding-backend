@@ -8,9 +8,8 @@ on:
       - 'cdk.json'
 
 jobs:
-  build-and-check-diff:
+  log-diff:
     runs-on: 'ubuntu-latest'
-    environment: 'dev'
     permissions:
       id-token: write
       contents: read
@@ -40,27 +39,14 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_READ_ROLE }}
           aws-region: ap-southeast-2
-      - name: Create manifest
-        continue-on-error: true #expected to error due to manifest not being generated in root
-        run: cdk synth
       - name: Run diff
         run: cdk diff --app infrastructure/cdk.out
-      - name: Prepare manifest upload
-        run: |
-          mkdir manifestUpload
-          cp -r infrastructure/cdk.out manifestUpload
-      - name: Save Manifest
-        uses: actions/upload-artifact@v3
-        with:
-          name: manifest
-          path: manifestUpload
-          retention-days: 2
 
 
   deploy-dev:
     runs-on: 'ubuntu-latest'
     environment: 'dev'
-    needs: build-and-check-diff
+    needs: log-diff
     permissions:
       id-token: write
       contents: read
@@ -89,7 +75,7 @@ jobs:
         with:
           name: manifest
       - name: Deploy stack
-        run: cdk deploy --app cdk.out --require-approval never
+        run: cdk deploy --app infrastructure/cdk.out --require-approval never
 
 
 #  deploys-prod:

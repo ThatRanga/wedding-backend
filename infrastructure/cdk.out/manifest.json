@@ -1,0 +1,136 @@
+{
+  "version": "30.1.0",
+  "artifacts": {
+    "test-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "test-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "test-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://781525612065/ap-southeast-2",
+      "properties": {
+        "templateFile": "test-stack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/8afb05cdd9a4b10eda07cdd1da48c7bb2b10acf19203d1df83be8c4e103dbb9e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "test-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-lookup-role-781525612065-ap-southeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "test-stack.assets"
+      ],
+      "metadata": {
+        "/test-stack/simple-instance-1-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleinstance1role9EEDA67C"
+          }
+        ],
+        "/test-stack/simple-load-balancer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerAC90B3BA"
+          }
+        ],
+        "/test-stack/simple-load-balancer/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerSecurityGroupD3DBDF90"
+          }
+        ],
+        "/test-stack/simple-load-balancer/SecurityGroup/to teststacksimpleinstance1sg92876672:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerSecurityGrouptoteststacksimpleinstance1sg9287667280FA42DECF"
+          }
+        ],
+        "/test-stack/simple-load-balancer/ALBListenerHttp/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerALBListenerHttp336CD0BF"
+          }
+        ],
+        "/test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
+          }
+        ],
+        "/test-stack/simple-instance-1-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleinstance1sg1026C7DF"
+          }
+        ],
+        "/test-stack/simple-instance-1-sg/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleinstance1sgfromteststacksimpleloadbalancerSecurityGroup7A541B6F8010B45FD4"
+          }
+        ],
+        "/test-stack/AutoScalingGroup/InstanceProfile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoScalingGroupInstanceProfile342FAC7C"
+          }
+        ],
+        "/test-stack/AutoScalingGroup/LaunchConfig": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoScalingGroupLaunchConfigDEEB160C"
+          }
+        ],
+        "/test-stack/AutoScalingGroup/ASG": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AutoScalingGroupASG804C35BE"
+          }
+        ],
+        "/test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/test-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/test-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/test-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "test-stack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

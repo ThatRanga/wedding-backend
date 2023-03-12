@@ -4,6 +4,9 @@
 # Ignore Gradle build output directory
 build
 
+#Ignore dev env folders
 .idea
-*.out
+
+#Ignore CDK output at top level
+/cdk.out
 cdk.context.json
