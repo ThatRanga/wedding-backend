@@ -70,8 +70,8 @@ jobs:
         with:
             role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
             aws-region: ap-southeast-2
-      - name: Deploy stack
-        run: cdk deploy --app infrastructure/cdk.out --require-approval never
+      - name: Deploy stacks
+        run: cdk deploy --app infrastructure/cdk.out --require-approval never --all
 
 
 #  deploys-prod:
