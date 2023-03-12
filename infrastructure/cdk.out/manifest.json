@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/8afb05cdd9a4b10eda07cdd1da48c7bb2b10acf19203d1df83be8c4e103dbb9e.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/fc790631610c4baf16ac6a66a989720251d123d2eb8f6c974ad23682ae39a15f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -105,6 +105,12 @@
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
           }
         ],
+        "/test-stack/myAsgRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myAsgRef"
+          }
+        ],
         "/test-stack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
@@ -125,6 +131,162 @@
         ]
       },
       "displayName": "test-stack"
+    },
+    "test-code-deploy.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "test-code-deploy.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "test-code-deploy": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://781525612065/ap-southeast-2",
+      "properties": {
+        "templateFile": "test-code-deploy.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/fa2bc28e288790650111b530a9940432d2bb0447da143101b2fbd2ffe8794821.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "test-code-deploy.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-lookup-role-781525612065-ap-southeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "test-stack",
+        "test-code-deploy.assets"
+      ],
+      "metadata": {
+        "/test-code-deploy/wedding-CodeDeployApplication/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "weddingCodeDeployApplication69689818"
+          }
+        ],
+        "/test-code-deploy/CodeDeployDeploymentGroup/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodeDeployDeploymentGroupRole81435E9E"
+          }
+        ],
+        "/test-code-deploy/CodeDeployDeploymentGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodeDeployDeploymentGroupA33AC6C7"
+          }
+        ],
+        "/test-code-deploy/DefaultBuildProject/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultBuildProjectRoleAC512279"
+          }
+        ],
+        "/test-code-deploy/DefaultBuildProject/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultBuildProjectRoleDefaultPolicy3ECA6F80"
+          }
+        ],
+        "/test-code-deploy/DefaultBuildProject/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultBuildProject307C1BA1"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineArtifactsBucketF267482A"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineArtifactsBucketPolicy4AC54B38"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineRole92827143"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineRoleDefaultPolicy50A497B6"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipeline91C60A41"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Source/Github_Source/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineSourceGithubSourceCodePipelineActionRoleCA5D752F"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Source/Github_Source/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineSourceGithubSourceCodePipelineActionRoleDefaultPolicy345057C4"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Build/Build/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineBuildCodePipelineActionRoleDB957401"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineBuildCodePipelineActionRoleDefaultPolicyB29B7ED1"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Deploy/Deploy_EC2/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineDeployDeployEC2CodePipelineActionRoleAACF00C6"
+          }
+        ],
+        "/test-code-deploy/DefaultPipeline/Deploy/Deploy_EC2/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DefaultPipelineDeployDeployEC2CodePipelineActionRoleDefaultPolicyDFF92256"
+          }
+        ],
+        "/test-code-deploy/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/test-code-deploy/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/test-code-deploy/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "test-code-deploy"
     },
     "Tree": {
       "type": "cdk:tree",

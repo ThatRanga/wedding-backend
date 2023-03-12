@@ -1,15 +1,15 @@
 {
   "version": "30.1.0",
   "files": {
-    "fc790631610c4baf16ac6a66a989720251d123d2eb8f6c974ad23682ae39a15f": {
+    "fa2bc28e288790650111b530a9940432d2bb0447da143101b2fbd2ffe8794821": {
       "source": {
-        "path": "test-stack.template.json",
+        "path": "test-code-deploy.template.json",
         "packaging": "file"
       },
       "destinations": {
         "781525612065-ap-southeast-2": {
           "bucketName": "cdk-hnb659fds-assets-781525612065-ap-southeast-2",
-          "objectKey": "fc790631610c4baf16ac6a66a989720251d123d2eb8f6c974ad23682ae39a15f.json",
+          "objectKey": "fa2bc28e288790650111b530a9940432d2bb0447da143101b2fbd2ffe8794821.json",
           "region": "ap-southeast-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-file-publishing-role-781525612065-ap-southeast-2"
         }

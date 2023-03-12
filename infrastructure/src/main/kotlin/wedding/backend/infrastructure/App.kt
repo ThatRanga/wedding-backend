@@ -7,7 +7,7 @@ import software.amazon.awscdk.StackProps
 fun main() {
     val app = App()
 
-    ComputeStack(
+    val computeStack = ComputeStack(
         app, "test-stack", StackProps.builder()
             .env(Environment.builder()
                 .account("781525612065")
@@ -16,5 +16,17 @@ fun main() {
             )
             .build()
     )
+
+    val deployStack = CodeDeployStack(app, "test-code-deploy", StackProps.builder()
+        .env(Environment.builder()
+            .account("781525612065")
+            .region("ap-southeast-2")
+            .build()
+        )
+        .build(),
+        computeStack.asg)
+
+    deployStack.addDependency(computeStack)
+
     app.synth()
 }
