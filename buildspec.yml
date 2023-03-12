@@ -12,7 +12,7 @@ phases:
       - echo Build completed
 artifacts:
   files:
-    - app/build/lib/app*SNAPSHOT.jar
+    - app/build/libs/app*SNAPSHOT.jar
     - scripts/*.sh
     - appspec.yml
   discard-paths: yes
