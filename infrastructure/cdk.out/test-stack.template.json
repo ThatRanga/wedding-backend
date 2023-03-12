@@ -233,7 +233,7 @@
      }
     ],
     "UserData": {
-     "Fn::Base64": "#!/bin/bash"
+     "Fn::Base64": "sudo yum update\nsudo yum install ruby\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo yum install -y python-pip\nsudo pip install awscli\nsudo amazon-linux-extras install java-corretto17"
     }
    },
    "DependsOn": [

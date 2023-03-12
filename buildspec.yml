@@ -10,10 +10,10 @@ phases:
   post_build:
     commands:
       - echo Build completed
-  artifacts:
-    files:
-      - app/build/lib/app*SNAPSHOT.jar
-      - scripts/*.sh
-      - appspec.yml
-    discard-paths: yes
+artifacts:
+  files:
+    - app/build/lib/app*SNAPSHOT.jar
+    - scripts/*.sh
+    - appspec.yml
+  discard-paths: yes
 
