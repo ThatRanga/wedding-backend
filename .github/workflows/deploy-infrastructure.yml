@@ -88,7 +88,7 @@ jobs:
         with:
           name: manifest
       - name: Deploy stack
-        run: cdk deploy
+        run: cdk deploy --app cdk.out
 
 
 #  deploys-prod:
