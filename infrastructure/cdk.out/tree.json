@@ -386,6 +386,7 @@
                     "iamInstanceProfile": {
                       "Ref": "AutoScalingGroupInstanceProfile342FAC7C"
                     },
+                    "keyName": "default-ssh-key",
                     "securityGroups": [
                       {
                         "Fn::GetAtt": [
@@ -490,7 +491,7 @@
             },
             "constructInfo": {
               "fqn": "constructs.Construct",
-              "version": "10.1.274"
+              "version": "10.1.275"
             }
           },
           "BootstrapVersion": {
@@ -1408,13 +1409,13 @@
                     },
                     "constructInfo": {
                       "fqn": "constructs.Construct",
-                      "version": "10.1.274"
+                      "version": "10.1.275"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "constructs.Construct",
-                  "version": "10.1.274"
+                  "version": "10.1.275"
                 }
               },
               "Build": {
@@ -1519,13 +1520,13 @@
                     },
                     "constructInfo": {
                       "fqn": "constructs.Construct",
-                      "version": "10.1.274"
+                      "version": "10.1.275"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "constructs.Construct",
-                  "version": "10.1.274"
+                  "version": "10.1.275"
                 }
               },
               "Deploy": {
@@ -1702,13 +1703,13 @@
                     },
                     "constructInfo": {
                       "fqn": "constructs.Construct",
-                      "version": "10.1.274"
+                      "version": "10.1.275"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "constructs.Construct",
-                  "version": "10.1.274"
+                  "version": "10.1.275"
                 }
               }
             },
@@ -1732,7 +1733,7 @@
             },
             "constructInfo": {
               "fqn": "constructs.Construct",
-              "version": "10.1.274"
+              "version": "10.1.275"
             }
           },
           "BootstrapVersion": {
@@ -1762,7 +1763,7 @@
         "path": "Tree",
         "constructInfo": {
           "fqn": "constructs.Construct",
-          "version": "10.1.274"
+          "version": "10.1.275"
         }
       }
     },

@@ -224,6 +224,7 @@
     "IamInstanceProfile": {
      "Ref": "AutoScalingGroupInstanceProfile342FAC7C"
     },
+    "KeyName": "default-ssh-key",
     "SecurityGroups": [
      {
       "Fn::GetAtt": [
