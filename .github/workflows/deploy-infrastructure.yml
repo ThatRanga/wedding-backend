@@ -54,7 +54,7 @@ jobs:
   deploy-dev:
     runs-on: 'ubuntu-latest'
     environment: 'dev'
-    needs: check-diff
+    needs: build-and-check-diff
     permissions:
       id-token: write
       contents: read
@@ -89,7 +89,7 @@ jobs:
 #  deploys-prod:
 #    runs-on: ubuntu-latest
 #    environment: 'prod'
-#    needs: [check-diff, deploy-dev]
+#    needs: [build-and-check-diff, deploy-dev]
 #    permissions:
 #      id-token: write
 #      contents: read
