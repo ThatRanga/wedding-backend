@@ -70,10 +70,6 @@ jobs:
         with:
             role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
             aws-region: ap-southeast-2
-      - name: Download Manifest
-        uses: actions/download-artifact@v3
-        with:
-          name: manifest
       - name: Deploy stack
         run: cdk deploy --app infrastructure/cdk.out --require-approval never
 
