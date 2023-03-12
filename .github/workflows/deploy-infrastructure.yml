@@ -39,7 +39,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_READ_ROLE }}
           aws-region: us-east-1
       - name: Create manifest
-        continue-on-error: true
+        continue-on-error: true #expected to error due to manifest not being generated in root
         run: cdk synth
       - name: Run diff
         run: cdk diff --app infrastructure/cdk.out
