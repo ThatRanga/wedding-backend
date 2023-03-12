@@ -44,11 +44,16 @@ jobs:
         run: cdk synth
       - name: Run diff
         run: cdk diff --app infrastructure/cdk.out
+      - name: Prepare manifest upload
+        run: |
+          mkdir manifestUpload
+          cp -r infrastructure/cdk.out manifestUpload
       - name: Save Manifest
         uses: actions/upload-artifact@v3
         with:
           name: manifest
-          path: infrastructure/cdk.out
+          path: manifestUpload
+          retention-days: 2
 
 
   deploy-dev:
@@ -83,7 +88,7 @@ jobs:
         with:
           name: manifest
       - name: Deploy stack
-        run: cdk deploy --app cdk.out
+        run: cdk deploy
 
 
 #  deploys-prod:
