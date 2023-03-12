@@ -5,6 +5,5 @@
 build
 
 .idea
-gradle
 *.out
 cdk.context.json

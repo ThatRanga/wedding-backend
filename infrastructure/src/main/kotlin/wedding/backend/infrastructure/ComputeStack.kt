@@ -4,7 +4,15 @@ import software.amazon.awscdk.CfnOutput
 import software.amazon.awscdk.CfnOutputProps
 import software.amazon.awscdk.StackProps
 import software.amazon.awscdk.Stack
+import software.amazon.awscdk.services.autoscaling.AutoScalingGroup
+import software.amazon.awscdk.services.autoscaling.AutoScalingGroupProps
+import software.amazon.awscdk.services.autoscaling.HealthCheck
 import software.amazon.awscdk.services.ec2.*
+import software.amazon.awscdk.services.elasticloadbalancingv2.AddApplicationTargetsProps
+import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancer
+import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancerProps
+import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationProtocol
+import software.amazon.awscdk.services.elasticloadbalancingv2.BaseApplicationListenerProps
 import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
 import software.amazon.awscdk.services.iam.ServicePrincipal
@@ -28,6 +36,16 @@ class ComputeStack(
             RoleProps.builder().assumedBy(ServicePrincipal("ec2.amazonaws.com")).build()
         )
 
+        val loadBalancer = ApplicationLoadBalancer(this, "simple-load-balancer", ApplicationLoadBalancerProps.builder()
+            .vpc(defaultVpc)
+            .internetFacing(true)
+            .build())
+
+        val httpListener = loadBalancer.addListener("ALBListenerHttp", BaseApplicationListenerProps.builder()
+            .protocol(ApplicationProtocol.HTTP)
+            .port(80)
+            .build())
+
         // lets create a security group for our instance
         // A security group acts as a virtual firewall for your instance to control inbound and outbound traffic.
         val securityGroup = SecurityGroup(
@@ -35,7 +53,7 @@ class ComputeStack(
             "simple-instance-1-sg",
             SecurityGroupProps.builder()
                 .vpc(defaultVpc)
-                .allowAllOutbound(true) // will let your instance send outboud traffic
+                .allowAllOutbound(true) // will let your instance send outbound traffic
                 .securityGroupName("simple-instance-1-sg")
                 .build()
         )
@@ -59,21 +77,31 @@ class ComputeStack(
             "Allows HTTPS access from Internet"
         )
 
-        // Finally lets provision our ec2 instance
-        val instance = Instance(
-            this, "simple-instance-1", InstanceProps.builder()
+        // Provision ASG for EC2 instances
+        val asg = AutoScalingGroup(
+            this, "AutoScalingGroup", AutoScalingGroupProps.builder()
                 .vpc(defaultVpc)
                 .role(role)
                 .securityGroup(securityGroup)
-                .instanceName("simple-instance-1")
                 .instanceType(InstanceType.of(InstanceClass.T2, InstanceSize.MICRO))
                 .machineImage(MachineImage.latestAmazonLinux())
 //                        .keyName("simple-instance-1-key")
+                .healthCheck(HealthCheck.ec2())
+                .minCapacity(1)
+                .maxCapacity(2)
                 .build()
         )
 
-        // cdk lets us output prperties of the resources we create after they are created
-        // we want the ip address of this new instance so we can ssh into it later
-        CfnOutput(this, "simple-instance-1-output", CfnOutputProps.builder().value(instance.instancePublicIp).build())
+        httpListener.addTargets("TargetGroup", AddApplicationTargetsProps.builder()
+            .port(80)
+            .protocol(ApplicationProtocol.HTTP)
+            .targets(listOf(asg))
+            .healthCheck(software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck.builder()
+                .port("80")
+                .path("/actuator/health")
+                .healthyHttpCodes("200")
+                .build())
+            .build()
+        )
     }
 }

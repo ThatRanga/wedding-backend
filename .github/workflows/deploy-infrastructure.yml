@@ -1,0 +1,78 @@
+name: infrastructure
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'infrastructure/*'
+      - 'cdk.json'
+
+jobs:
+  check-diff:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'cornetto'
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Install Python dependencies and CDK
+        run: |
+          python -m pip install --upgrade pip
+          # install your Python dependencies here
+          npm install -g aws-cdk
+      - name: Configure AWS credentials for read role
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_READ_ROLE }}
+          aws-region: us-east-1
+      - name: Create manifest
+        run: cdk synth
+      - name: Run diff
+        run: cdk diff --app infrastructure/cdk.out
+
+
+#  deploy-dev:
+#    runs-on: 'ubuntu-latest'
+#    environment: 'dev'
+#    needs: check-diff
+#    permissions:
+#      id-token: write
+#      contents: read
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#      - name: Configure AWS credentials from test env
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#            role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+#            aws-region: us-east-1
+#
+#  deploys-prod:
+#    runs-on: ubuntu-latest
+#    environment: 'prod'
+#    needs: [check-diff, deploy-dev]
+#    permissions:
+#      id-token: write
+#      contents: read
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#      - name: Configure AWS credentials from test env
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
+#          aws-region: us-east-1
+
