@@ -81,7 +81,7 @@
                             {
                               "Ref": "AWS::Partition"
                             },
-                            ":iam::aws:policy/AmazonEC2RoleforAWSCodeDeployLimited"
+                            ":iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
                           ]
                         ]
                       }

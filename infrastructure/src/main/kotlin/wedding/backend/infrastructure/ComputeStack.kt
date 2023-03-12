@@ -37,7 +37,7 @@ class ComputeStack(
             "simple-instance-1-role", // this is a unique id that will represent this resource in a Cloudformation template
             RoleProps.builder().assumedBy(ServicePrincipal("ec2.amazonaws.com"))
                 .managedPolicies(listOf(
-                    ManagedPolicy.fromAwsManagedPolicyName("AmazonEC2RoleforAWSCodeDeployLimited")
+                    ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforAWSCodeDeploy")
                 ))
                 .build()
         )
