@@ -13,7 +13,7 @@ phases:
 artifacts:
   files:
     - app/build/libs/app*SNAPSHOT.jar
-    - scripts/*.sh
+    - scripts/server/*.sh
     - appspec.yml
   discard-paths: yes
 

@@ -380,7 +380,7 @@
                   "aws:cdk:cloudformation:type": "AWS::AutoScaling::LaunchConfiguration",
                   "aws:cdk:cloudformation:props": {
                     "imageId": {
-                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+                      "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2022amikernel510x8664C96584B6F00A464EAD1953AFF4B05118Parameter"
                     },
                     "instanceType": "t2.micro",
                     "iamInstanceProfile": {
@@ -396,7 +396,7 @@
                       }
                     ],
                     "userData": {
-                      "Fn::Base64": "sudo yum update\nsudo yum install ruby\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo yum install -y python-pip\nsudo pip install awscli\nsudo amazon-linux-extras install java-corretto17"
+                      "Fn::Base64": "#!/bin/bash\n\nsudo yum update\nsudo yum install ruby\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo yum install -y python-pip\nsudo pip install awscli\nsudo amazon-linux-extras install java-corretto17\n"
                     }
                   }
                 },
@@ -452,17 +452,17 @@
               "version": "2.68.0"
             }
           },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
-            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
+            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.68.0"
             }
           },
-          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118": {
-            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
-            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
+          "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118": {
+            "id": "SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
+            "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2022-ami-kernel-5.10-x86_64:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "constructInfo": {
               "fqn": "aws-cdk-lib.Resource",
               "version": "2.68.0"
