@@ -79,7 +79,7 @@ jobs:
             role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
             aws-region: us-east-1
       - name: Download Manifest
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: manifest
       - name: Deploy stack
