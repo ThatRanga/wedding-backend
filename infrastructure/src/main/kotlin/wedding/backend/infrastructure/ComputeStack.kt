@@ -102,6 +102,7 @@ class ComputeStack(
                 .healthCheck(HealthCheck.ec2())
                 .minCapacity(1)
                 .maxCapacity(2)
+                .keyName("default-ssh-key")
                 .build()
         )
 
