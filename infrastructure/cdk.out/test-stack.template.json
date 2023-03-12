@@ -14,7 +14,21 @@
       }
      ],
      "Version": "2012-10-17"
-    }
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2RoleforAWSCodeDeployLimited"
+       ]
+      ]
+     }
+    ]
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/simple-instance-1-role/Resource"
@@ -234,7 +248,7 @@
      }
     ],
     "UserData": {
-     "Fn::Base64": "#!/bin/bash\n\nsudo yum update\nsudo yum install ruby\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo yum install -y python-pip\nsudo pip install awscli\nsudo amazon-linux-extras install java-corretto17\n"
+     "Fn::Base64": "#!/bin/bash\n\nsudo yum -y update\nsudo yum -y install ruby\nsudo yum -y install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install\nsudo chmod +x ./install\nsudo ./install auto\nsudo yum -y install java-17-amazon-corretto-devel\n"
     }
    },
    "DependsOn": [

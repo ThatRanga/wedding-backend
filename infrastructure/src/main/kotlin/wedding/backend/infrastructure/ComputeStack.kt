@@ -11,6 +11,7 @@ import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBal
 import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancerProps
 import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationProtocol
 import software.amazon.awscdk.services.elasticloadbalancingv2.BaseApplicationListenerProps
+import software.amazon.awscdk.services.iam.ManagedPolicy
 import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
 import software.amazon.awscdk.services.iam.ServicePrincipal
@@ -34,7 +35,11 @@ class ComputeStack(
         val role = Role(
             this,
             "simple-instance-1-role", // this is a unique id that will represent this resource in a Cloudformation template
-            RoleProps.builder().assumedBy(ServicePrincipal("ec2.amazonaws.com")).build()
+            RoleProps.builder().assumedBy(ServicePrincipal("ec2.amazonaws.com"))
+                .managedPolicies(listOf(
+                    ManagedPolicy.fromAwsManagedPolicyName("AmazonEC2RoleforAWSCodeDeployLimited")
+                ))
+                .build()
         )
 
         val loadBalancer = ApplicationLoadBalancer(
