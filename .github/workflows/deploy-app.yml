@@ -57,8 +57,7 @@ jobs:
         shell: bash
         run: |
           pipelineId=`cat artifact.txt`
-          echo $pipelineId
-#          ./.github/scripts/watch-pipeline.sh pipelineId
+          ./.github/scripts/watch-pipeline.sh $pipelineId
 
           
         
