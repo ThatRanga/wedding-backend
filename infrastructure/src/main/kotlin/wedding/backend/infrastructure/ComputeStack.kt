@@ -61,7 +61,7 @@ class ComputeStack(
             "ALBListenerHttps", BaseApplicationListenerProps.builder()
                 .protocol(ApplicationProtocol.HTTPS)
                 .port(443)
-                .certificates(listOf(ListenerCertificate.fromArn("arn:aws:acm:us-east-1:781525612065:certificate/425f566f-dd83-424b-98b1-1ef2d201ddaf")))
+                .certificates(listOf(ListenerCertificate.fromArn("arn:aws:acm:ap-southeast-2:781525612065:certificate/3bdbe752-88bb-4a3a-9393-0d9be15ff58b")))
                 .build()
         )
 
