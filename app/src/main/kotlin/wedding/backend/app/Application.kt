@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
-class DemoApplication
+class Application
 
 fun main(args: Array<String>) {
-	runApplication<DemoApplication>(*args)
+	runApplication<Application>(*args)
 }
 
 @RestController

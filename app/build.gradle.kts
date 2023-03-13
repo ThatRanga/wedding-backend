@@ -25,5 +25,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("wedding.backend.app.AppKt")
+    mainClass.set("wedding.backend.app.ApplicationKt")
 }
