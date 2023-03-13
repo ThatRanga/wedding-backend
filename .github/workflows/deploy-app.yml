@@ -34,6 +34,7 @@ jobs:
         retention-days: 1
 
   wait-for-deploy:
+    needs: start-deploy-dev
     runs-on: 'ubuntu-latest'
     timeout-minutes: 10
     environment: 'dev'
