@@ -16,5 +16,5 @@ fun main(args: Array<String>) {
 @RestController
 class MessageController {
 	@GetMapping("/")
-	fun index(@RequestParam("name", required = false, defaultValue = "anonymous") name: String) = "Hello there, $name!"
+	fun index(@RequestParam("name", required = false, defaultValue = "anonymous") name: String) = "Hello, $name!"
 }
