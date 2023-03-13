@@ -165,9 +165,9 @@
                       "version": "2.68.0"
                     }
                   },
-                  "to teststacksimpleinstance1sg92876672:80": {
-                    "id": "to teststacksimpleinstance1sg92876672:80",
-                    "path": "test-stack/simple-load-balancer/SecurityGroup/to teststacksimpleinstance1sg92876672:80",
+                  "to teststackAutoScalingGroupInstanceSecurityGroup39523512:80": {
+                    "id": "to teststackAutoScalingGroupInstanceSecurityGroup39523512:80",
+                    "path": "test-stack/simple-load-balancer/SecurityGroup/to teststackAutoScalingGroupInstanceSecurityGroup39523512:80",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
                       "aws:cdk:cloudformation:props": {
@@ -181,7 +181,7 @@
                         "description": "Load balancer to target",
                         "destinationSecurityGroupId": {
                           "Fn::GetAtt": [
-                            "simpleinstance1sg1026C7DF",
+                            "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
                             "GroupId"
                           ]
                         },
@@ -280,95 +280,81 @@
               "version": "2.68.0"
             }
           },
-          "simple-instance-1-sg": {
-            "id": "simple-instance-1-sg",
-            "path": "test-stack/simple-instance-1-sg",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "test-stack/simple-instance-1-sg/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
-                  "aws:cdk:cloudformation:props": {
-                    "groupDescription": "test-stack/simple-instance-1-sg",
-                    "groupName": "simple-instance-1-sg",
-                    "securityGroupEgress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "description": "Allow all outbound traffic by default",
-                        "ipProtocol": "-1"
-                      }
-                    ],
-                    "securityGroupIngress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 22,
-                        "toPort": 22,
-                        "description": "Allows SSH access from Internet"
-                      },
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 80,
-                        "toPort": 80,
-                        "description": "Allows HTTP access from Internet"
-                      },
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 443,
-                        "toPort": 443,
-                        "description": "Allows HTTPS access from Internet"
-                      }
-                    ],
-                    "vpcId": "vpc-0335b61a81f638466"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
-                  "version": "2.68.0"
-                }
-              },
-              "from teststacksimpleloadbalancerSecurityGroup7A541B6F:80": {
-                "id": "from teststacksimpleloadbalancerSecurityGroup7A541B6F:80",
-                "path": "test-stack/simple-instance-1-sg/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
-                  "aws:cdk:cloudformation:props": {
-                    "ipProtocol": "tcp",
-                    "description": "Load balancer to target",
-                    "fromPort": 80,
-                    "groupId": {
-                      "Fn::GetAtt": [
-                        "simpleinstance1sg1026C7DF",
-                        "GroupId"
-                      ]
-                    },
-                    "sourceSecurityGroupId": {
-                      "Fn::GetAtt": [
-                        "simpleloadbalancerSecurityGroupD3DBDF90",
-                        "GroupId"
-                      ]
-                    },
-                    "toPort": 80
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
-                  "version": "2.68.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
-              "version": "2.68.0"
-            }
-          },
           "AutoScalingGroup": {
             "id": "AutoScalingGroup",
             "path": "test-stack/AutoScalingGroup",
             "children": {
+              "InstanceSecurityGroup": {
+                "id": "InstanceSecurityGroup",
+                "path": "test-stack/AutoScalingGroup/InstanceSecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "test-stack/AutoScalingGroup/InstanceSecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "test-stack/AutoScalingGroup/InstanceSecurityGroup",
+                        "securityGroupEgress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "Allow all outbound traffic by default",
+                            "ipProtocol": "-1"
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "code-deploy",
+                            "value": "wedding-backend"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "test-stack/AutoScalingGroup"
+                          }
+                        ],
+                        "vpcId": "vpc-0335b61a81f638466"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                      "version": "2.68.0"
+                    }
+                  },
+                  "from teststacksimpleloadbalancerSecurityGroup7A541B6F:80": {
+                    "id": "from teststacksimpleloadbalancerSecurityGroup7A541B6F:80",
+                    "path": "test-stack/AutoScalingGroup/InstanceSecurityGroup/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "ipProtocol": "tcp",
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": {
+                          "Fn::GetAtt": [
+                            "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
+                            "GroupId"
+                          ]
+                        },
+                        "sourceSecurityGroupId": {
+                          "Fn::GetAtt": [
+                            "simpleloadbalancerSecurityGroupD3DBDF90",
+                            "GroupId"
+                          ]
+                        },
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.68.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                  "version": "2.68.0"
+                }
+              },
               "InstanceProfile": {
                 "id": "InstanceProfile",
                 "path": "test-stack/AutoScalingGroup/InstanceProfile",
@@ -404,7 +390,7 @@
                     "securityGroups": [
                       {
                         "Fn::GetAtt": [
-                          "simpleinstance1sg1026C7DF",
+                          "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
                           "GroupId"
                         ]
                       }

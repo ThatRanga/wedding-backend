@@ -82,7 +82,7 @@
     "aws:cdk:path": "test-stack/simple-load-balancer/SecurityGroup/Resource"
    }
   },
-  "simpleloadbalancerSecurityGrouptoteststacksimpleinstance1sg9287667280FA42DECF": {
+  "simpleloadbalancerSecurityGrouptoteststackAutoScalingGroupInstanceSecurityGroup3952351280AD3898A4": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "GroupId": {
@@ -95,7 +95,7 @@
     "Description": "Load balancer to target",
     "DestinationSecurityGroupId": {
      "Fn::GetAtt": [
-      "simpleinstance1sg1026C7DF",
+      "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
       "GroupId"
      ]
     },
@@ -103,7 +103,7 @@
     "ToPort": 80
    },
    "Metadata": {
-    "aws:cdk:path": "test-stack/simple-load-balancer/SecurityGroup/to teststacksimpleinstance1sg92876672:80"
+    "aws:cdk:path": "test-stack/simple-load-balancer/SecurityGroup/to teststackAutoScalingGroupInstanceSecurityGroup39523512:80"
    }
   },
   "simpleloadbalancerALBListenerHttp336CD0BF": {
@@ -150,11 +150,10 @@
     "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource"
    }
   },
-  "simpleinstance1sg1026C7DF": {
+  "AutoScalingGroupInstanceSecurityGroup9D2E0C5E": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "test-stack/simple-instance-1-sg",
-    "GroupName": "simple-instance-1-sg",
+    "GroupDescription": "test-stack/AutoScalingGroup/InstanceSecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -162,36 +161,23 @@
       "IpProtocol": "-1"
      }
     ],
-    "SecurityGroupIngress": [
+    "Tags": [
      {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allows SSH access from Internet",
-      "FromPort": 22,
-      "IpProtocol": "tcp",
-      "ToPort": 22
+      "Key": "code-deploy",
+      "Value": "wedding-backend"
      },
      {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allows HTTP access from Internet",
-      "FromPort": 80,
-      "IpProtocol": "tcp",
-      "ToPort": 80
-     },
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allows HTTPS access from Internet",
-      "FromPort": 443,
-      "IpProtocol": "tcp",
-      "ToPort": 443
+      "Key": "Name",
+      "Value": "test-stack/AutoScalingGroup"
      }
     ],
     "VpcId": "vpc-0335b61a81f638466"
    },
    "Metadata": {
-    "aws:cdk:path": "test-stack/simple-instance-1-sg/Resource"
+    "aws:cdk:path": "test-stack/AutoScalingGroup/InstanceSecurityGroup/Resource"
    }
   },
-  "simpleinstance1sgfromteststacksimpleloadbalancerSecurityGroup7A541B6F8010B45FD4": {
+  "AutoScalingGroupInstanceSecurityGroupfromteststacksimpleloadbalancerSecurityGroup7A541B6F80E122A813": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
     "IpProtocol": "tcp",
@@ -199,7 +185,7 @@
     "FromPort": 80,
     "GroupId": {
      "Fn::GetAtt": [
-      "simpleinstance1sg1026C7DF",
+      "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
       "GroupId"
      ]
     },
@@ -212,7 +198,7 @@
     "ToPort": 80
    },
    "Metadata": {
-    "aws:cdk:path": "test-stack/simple-instance-1-sg/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80"
+    "aws:cdk:path": "test-stack/AutoScalingGroup/InstanceSecurityGroup/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80"
    }
   },
   "AutoScalingGroupInstanceProfile342FAC7C": {
@@ -242,7 +228,7 @@
     "SecurityGroups": [
      {
       "Fn::GetAtt": [
-       "simpleinstance1sg1026C7DF",
+       "AutoScalingGroupInstanceSecurityGroup9D2E0C5E",
        "GroupId"
       ]
      }

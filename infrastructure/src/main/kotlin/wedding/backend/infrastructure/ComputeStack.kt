@@ -56,37 +56,6 @@ class ComputeStack(
                 .build()
         )
 
-        // lets create a security group for our instance
-        // A security group acts as a virtual firewall for your instance to control inbound and outbound traffic.
-        val securityGroup = SecurityGroup(
-            this,
-            "simple-instance-1-sg",
-            SecurityGroupProps.builder()
-                .vpc(defaultVpc)
-                .allowAllOutbound(true) // will let your instance send outbound traffic
-                .securityGroupName("simple-instance-1-sg")
-                .build()
-        )
-
-        // lets use the security group to allow inbound traffic on specific ports
-        securityGroup.addIngressRule(
-            Peer.anyIpv4(),
-            Port.tcp(22),
-            "Allows SSH access from Internet"
-        )
-
-        securityGroup.addIngressRule(
-            Peer.anyIpv4(),
-            Port.tcp(80),
-            "Allows HTTP access from Internet"
-        )
-
-        securityGroup.addIngressRule(
-            Peer.anyIpv4(),
-            Port.tcp(443),
-            "Allows HTTPS access from Internet"
-        )
-
         val userData = File("../scripts/ec2/startup.sh").readText()
 
         // Provision ASG for EC2 instances
@@ -94,7 +63,6 @@ class ComputeStack(
             this, "AutoScalingGroup", AutoScalingGroupProps.builder()
                 .vpc(defaultVpc)
                 .role(role)
-                .securityGroup(securityGroup)
                 .instanceType(InstanceType.of(InstanceClass.T2, InstanceSize.MICRO))
                 .machineImage(
                     MachineImage.latestAmazonLinux(

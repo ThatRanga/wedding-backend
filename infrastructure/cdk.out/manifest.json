@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/922c3b01251f139ab11b19e26aa35a669abddbd009c4cfa1ef666d386a1ed8d6.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/f6dced3db9e31d397fddf59e7f5893b756c903bfb2056fbe68cb1d5d410d66ba.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -51,10 +51,10 @@
             "data": "simpleloadbalancerSecurityGroupD3DBDF90"
           }
         ],
-        "/test-stack/simple-load-balancer/SecurityGroup/to teststacksimpleinstance1sg92876672:80": [
+        "/test-stack/simple-load-balancer/SecurityGroup/to teststackAutoScalingGroupInstanceSecurityGroup39523512:80": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "simpleloadbalancerSecurityGrouptoteststacksimpleinstance1sg9287667280FA42DECF"
+            "data": "simpleloadbalancerSecurityGrouptoteststackAutoScalingGroupInstanceSecurityGroup3952351280AD3898A4"
           }
         ],
         "/test-stack/simple-load-balancer/ALBListenerHttp/Resource": [
@@ -69,16 +69,16 @@
             "data": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
           }
         ],
-        "/test-stack/simple-instance-1-sg/Resource": [
+        "/test-stack/AutoScalingGroup/InstanceSecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "simpleinstance1sg1026C7DF"
+            "data": "AutoScalingGroupInstanceSecurityGroup9D2E0C5E"
           }
         ],
-        "/test-stack/simple-instance-1-sg/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80": [
+        "/test-stack/AutoScalingGroup/InstanceSecurityGroup/from teststacksimpleloadbalancerSecurityGroup7A541B6F:80": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "simpleinstance1sgfromteststacksimpleloadbalancerSecurityGroup7A541B6F8010B45FD4"
+            "data": "AutoScalingGroupInstanceSecurityGroupfromteststacksimpleloadbalancerSecurityGroup7A541B6F80E122A813"
           }
         ],
         "/test-stack/AutoScalingGroup/InstanceProfile": [
