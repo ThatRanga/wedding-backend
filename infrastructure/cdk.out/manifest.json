@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/f6dced3db9e31d397fddf59e7f5893b756c903bfb2056fbe68cb1d5d410d66ba.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/7358b9bfd01943609553ffc4a04eb9865f31b6b9a5365082678995cbed546574.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -69,6 +69,18 @@
             "data": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
           }
         ],
+        "/test-stack/simple-load-balancer/ALBListenerHttps/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerALBListenerHttpsE9721260"
+          }
+        ],
+        "/test-stack/simple-load-balancer/ALBListenerHttps/TargetGroupHttpsGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
+          }
+        ],
         "/test-stack/AutoScalingGroup/InstanceSecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -103,12 +115,6 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
-          }
-        ],
-        "/test-stack/myAsgRef": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myAsgRef"
           }
         ],
         "/test-stack/CDKMetadata/Default": [

@@ -11,6 +11,7 @@ import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBal
 import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancerProps
 import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationProtocol
 import software.amazon.awscdk.services.elasticloadbalancingv2.BaseApplicationListenerProps
+import software.amazon.awscdk.services.elasticloadbalancingv2.ListenerCertificate
 import software.amazon.awscdk.services.iam.ManagedPolicy
 import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
@@ -56,6 +57,14 @@ class ComputeStack(
                 .build()
         )
 
+        val httpsListener = loadBalancer.addListener(
+            "ALBListenerHttps", BaseApplicationListenerProps.builder()
+                .protocol(ApplicationProtocol.HTTPS)
+                .port(443)
+                .certificates(listOf(ListenerCertificate.fromArn("arn:aws:acm:us-east-1:781525612065:certificate/425f566f-dd83-424b-98b1-1ef2d201ddaf")))
+                .build()
+        )
+
         val userData = File("../scripts/ec2/startup.sh").readText()
 
         // Provision ASG for EC2 instances
@@ -84,27 +93,20 @@ class ComputeStack(
                 .build()
         )
 
-        CfnOutput(
-            this, "myAsgRef", CfnOutputProps.builder()
-                .value(asg.autoScalingGroupName)
-                .description("Name of ASG in stack")
-                .exportName("myAsg")
-                .build()
-        )
+        val applicationTargetProps = AddApplicationTargetsProps.builder()
+            .port(80)
+            .protocol(ApplicationProtocol.HTTP)
+            .targets(listOf(asg))
+            .healthCheck(
+                software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck.builder()
+                    .port("80")
+                    .path("/actuator/health")
+                    .healthyHttpCodes("200")
+                    .build()
+            )
+            .build()
 
-        httpListener.addTargets(
-            "TargetGroup", AddApplicationTargetsProps.builder()
-                .port(80)
-                .protocol(ApplicationProtocol.HTTP)
-                .targets(listOf(asg))
-                .healthCheck(
-                    software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck.builder()
-                        .port("80")
-                        .path("/actuator/health")
-                        .healthyHttpCodes("200")
-                        .build()
-                )
-                .build()
-        )
+        httpListener.addTargets("TargetGroup", applicationTargetProps)
+        httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
     }
 }

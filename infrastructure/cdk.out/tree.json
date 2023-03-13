@@ -155,6 +155,13 @@
                             "fromPort": 80,
                             "toPort": 80,
                             "description": "Allow from anyone on port 80"
+                          },
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "ipProtocol": "tcp",
+                            "fromPort": 443,
+                            "toPort": 443,
+                            "description": "Allow from anyone on port 443"
                           }
                         ],
                         "vpcId": "vpc-0335b61a81f638466"
@@ -237,6 +244,85 @@
                       "Resource": {
                         "id": "Resource",
                         "path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "healthCheckPath": "/actuator/health",
+                            "healthCheckPort": "80",
+                            "matcher": {
+                              "httpCode": "200"
+                            },
+                            "port": 80,
+                            "protocol": "HTTP",
+                            "targetGroupAttributes": [
+                              {
+                                "key": "stickiness.enabled",
+                                "value": "false"
+                              }
+                            ],
+                            "targetType": "instance",
+                            "vpcId": "vpc-0335b61a81f638466"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                          "version": "2.68.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                      "version": "2.68.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                  "version": "2.68.0"
+                }
+              },
+              "ALBListenerHttps": {
+                "id": "ALBListenerHttps",
+                "path": "test-stack/simple-load-balancer/ALBListenerHttps",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "test-stack/simple-load-balancer/ALBListenerHttps/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "type": "forward",
+                            "targetGroupArn": {
+                              "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
+                            }
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "simpleloadbalancerAC90B3BA"
+                        },
+                        "certificates": [
+                          {
+                            "certificateArn": "arn:aws:acm:us-east-1:781525612065:certificate/425f566f-dd83-424b-98b1-1ef2d201ddaf"
+                          }
+                        ],
+                        "port": 443,
+                        "protocol": "HTTPS"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                      "version": "2.68.0"
+                    }
+                  },
+                  "TargetGroupHttpsGroup": {
+                    "id": "TargetGroupHttpsGroup",
+                    "path": "test-stack/simple-load-balancer/ALBListenerHttps/TargetGroupHttpsGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "test-stack/simple-load-balancer/ALBListenerHttps/TargetGroupHttpsGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                           "aws:cdk:cloudformation:props": {
@@ -432,6 +518,9 @@
                     "targetGroupArns": [
                       {
                         "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
+                      },
+                      {
+                        "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
                       }
                     ],
                     "vpcZoneIdentifier": [
@@ -465,14 +554,6 @@
             "path": "test-stack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "constructInfo": {
               "fqn": "aws-cdk-lib.Resource",
-              "version": "2.68.0"
-            }
-          },
-          "myAsgRef": {
-            "id": "myAsgRef",
-            "path": "test-stack/myAsgRef",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.68.0"
             }
           },

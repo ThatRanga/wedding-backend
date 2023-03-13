@@ -74,6 +74,13 @@
       "FromPort": 80,
       "IpProtocol": "tcp",
       "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 443",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
      }
     ],
     "VpcId": "vpc-0335b61a81f638466"
@@ -148,6 +155,55 @@
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource"
+   }
+  },
+  "simpleloadbalancerALBListenerHttpsE9721260": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "simpleloadbalancerAC90B3BA"
+    },
+    "Certificates": [
+     {
+      "CertificateArn": "arn:aws:acm:us-east-1:781525612065:certificate/425f566f-dd83-424b-98b1-1ef2d201ddaf"
+     }
+    ],
+    "Port": 443,
+    "Protocol": "HTTPS"
+   },
+   "Metadata": {
+    "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttps/Resource"
+   }
+  },
+  "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckPath": "/actuator/health",
+    "HealthCheckPort": "80",
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "instance",
+    "VpcId": "vpc-0335b61a81f638466"
+   },
+   "Metadata": {
+    "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttps/TargetGroupHttpsGroup/Resource"
    }
   },
   "AutoScalingGroupInstanceSecurityGroup9D2E0C5E": {
@@ -268,6 +324,9 @@
     "TargetGroupARNs": [
      {
       "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
+     },
+     {
+      "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
      }
     ],
     "VPCZoneIdentifier": [
@@ -288,7 +347,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31QTU/DMAz9LbunYewwuMKE0NAkppY78jK3M0uTynGGUNX/TtpuUwGJk/0+ZPt5oZf3ej6Dz5CZ/TGztNNtIWCOKsfgIxtUSXtvCWrd5t6iWpXuUtcuCDiDW/YlWewUWghCxnrY78AmiVx1Wuj2oWksGRDybpO0x0FD7mf8wFMfBUF39lz6if4GXKE8s49Nb5nAdIZJOws0kUm+rpb/iaeKMYQ/9NoNfKcgig8GbEqU8iRQjOA6bQPRmcPKu5KqyMONPf3b2nU9uwWGGmWM9xqliTI89vzzTr3ACW5u7/RcL2cfgSjj6IRq1PlYvwEpEJsxuAEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31QyU7DQAz9lt4nQ+mhcIUKoaIeqoQ7cl0nNZ14olmKUJR/Z5KQKoDEyX6LbD+v9PpeLxfw4TM8njPDB90WAfCscvI2OiSVtLeWodZtbg2pTSlT3YoPIEh7Z0s21Cky4AOjsXA8gEkSS3VZ6fahaQwjBLayS9rjoJHrZ/zAcx/7QPLtmfqZ/gquovDsbGx6ywymMzDtLAij4/B5tfxPPFWOvP9Db2XgOwUxWI9gUqKUJ4FiBNdpO4iCp42Vkqvohht7+re163p2Dw5qCmO86dOdeoEL3Nze6aVeL949c+aiBK5J52P9AuQPc02uAQAA"
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/CDKMetadata/Default"
@@ -304,17 +363,6 @@
    "Type": "AWS::SSM::Parameter::Value<String>",
    "Default": "/cdk-bootstrap/hnb659fds/version",
    "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
-  }
- },
- "Outputs": {
-  "myAsgRef": {
-   "Description": "Name of ASG in stack",
-   "Value": {
-    "Ref": "AutoScalingGroupASG804C35BE"
-   },
-   "Export": {
-    "Name": "myAsg"
-   }
   }
  },
  "Rules": {
