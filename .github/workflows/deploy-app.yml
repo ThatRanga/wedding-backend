@@ -1,4 +1,4 @@
-name: infrastructure
+name: app
 on:
   push:
     branches:
@@ -10,51 +10,51 @@ on:
       - 'appspec.yml'
       - 'scripts/**'
 
-  jobs:
-    start-deploy-dev:
-      runs-on: 'ubuntu-latest'
-      environment: 'dev'
-      permissions:
-        id-token: write
-        contents: read
-      steps:
+jobs:
+  start-deploy-dev:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Configure AWS credentials for test env
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE }}
+        aws-region: ap-southeast-2
+    - name: Start pipeline
+      shell: bash
+      run: ./.github/scripts/start-pipeline.sh
+    - name: Publish artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: pipelineId
+        path: artifact.txt
+        retention-days: 1
+
+  wait-for-deploy:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 10
+    environment: 'dev'
+    permissions:
+      id-token: write
+      contents: read
+    steps:
       - name: Configure AWS credentials for test env
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE }}
           aws-region: ap-southeast-2
-      - name: Start pipeline
-        shell: bash
-        run: ./.github/scripts/start-pipeline.sh
-      - name: Publish artifact
-        uses: actions/upload-artifact@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
         with:
           name: pipelineId
-          path: artifact.txt
-          retention-days: 1
-
-    wait-for-deploy:
-      runs-on: 'ubuntu-latest'
-      timeout-minutes: 10
-      environment: 'dev'
-      permissions:
-        id-token: write
-        contents: read
-      steps:
-        - name: Configure AWS credentials for test env
-          uses: aws-actions/configure-aws-credentials@v2
-          with:
-            role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE }}
-            aws-region: ap-southeast-2
-        - name: Download artifact
-          uses: actions/download-artifact@v3
-          with:
-            name: pipelineId
-        - name: Wait for pipeline
-          shell: bash
-          run: |
-            pipelineId=`cat artifact.txt`
-            ./github/scripts/watch-pipeline.sh pipelineId
+      - name: Wait for pipeline
+        shell: bash
+        run: |
+          pipelineId=`cat artifact.txt`
+          ./github/scripts/watch-pipeline.sh pipelineId
 
           
         
