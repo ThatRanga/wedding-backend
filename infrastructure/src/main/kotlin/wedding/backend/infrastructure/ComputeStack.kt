@@ -11,6 +11,7 @@ import software.amazon.awscdk.services.iam.ManagedPolicy
 import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
 import software.amazon.awscdk.services.iam.ServicePrincipal
+import software.amazon.awscdk.services.kms.Key
 import software.constructs.Construct
 import java.io.File
 
@@ -103,5 +104,7 @@ class ComputeStack(
             .build()
 
         httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
+
+        Key(this, "authentication-key")
     }
 }

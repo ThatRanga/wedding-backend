@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/807344c4790b499456180abcb82dc4c4d2d746c8beae1b66774cabec53dd943d.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/ad70546f43178df8af59b74ef387ddc473e23d7bab37f838e1fe5d30a9874adb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -109,6 +109,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/test-stack/authentication-key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "authenticationkey82B068A0"
           }
         ],
         "/test-stack/CDKMetadata/Default": [

@@ -319,10 +319,33 @@
     "aws:cdk:path": "test-stack/AutoScalingGroup/ASG"
    }
   },
+  "authenticationkey82B068A0": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::781525612065:root"
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "test-stack/authentication-key/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31QyU7DQAz9lt4nQ+mhcIUKoaIeqoQ7cl0nNZ14olmKUJR/Z5KQKoDEyX6LbD+v9PpeLxfw4TM8njPDB90WAfCscvI2OiSVtLeWodZtbg2pTSlT3YoPIEh7Z0s21Cky4AOjsXA8gEkSS3VZ6fahaQwjBLayS9rjoJHrZ/zAcx/7QPLtmfqZ/gquovDsbGx6ywymMzDtLAij4/B5tfxPPFWOvP9Db2XgOwUxWI9gUqKUJ4FiBNdpO4iCp42Vkqvohht7+re163p2Dw5qCmO86dOdeoEL3Nze6aVeL949c+aiBK5J52P9AuQPc02uAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Qy07DMBD8lt4dU3ooXKFCqNBDlXBHW3eTLnHsyI+iyvK/YyekCiBxmp2H1jte8fU9Xy7g0xbi2BaSDjxUDkTLSrTaG4Esee+BoOOh1BLZplYTbpV1oATuja5JYmQowToSUsPxADJZpJrzioeHvpckwJFWu+Q9Dh6avOMHn+fIOlTfmWme+W9gGnTPRvs+R2Y0nSHSmxUKb8hdrpH/hafGoLV/5K0a9MjAO20FyNQo9UmkGsl12w68EqeNVjU13gw3Zvl3NLK2szy84iW7CWLMwx4MdOjGvtPXR/YCZ7i5veNLvl58WKLCeOWoQ16O+AVx1hDhvwEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/CDKMetadata/Default"
