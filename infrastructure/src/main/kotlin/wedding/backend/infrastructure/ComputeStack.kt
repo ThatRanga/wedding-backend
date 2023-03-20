@@ -93,8 +93,6 @@ class ComputeStack(
                 .build()
         )
 
-        Tags.of(asg).add("test", "test6")
-
         val applicationTargetProps = AddApplicationTargetsProps.builder()
             .port(80)
             .protocol(ApplicationProtocol.HTTP)
