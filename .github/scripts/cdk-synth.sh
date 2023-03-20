@@ -1,3 +1,5 @@
 #!/bin/bash
 
-$(cdk synth) || true
+set +e
+
+cdk synth

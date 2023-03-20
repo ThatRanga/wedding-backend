@@ -93,7 +93,7 @@ class ComputeStack(
                 .build()
         )
 
-        Tags.of(asg).add("test", "test")
+        Tags.of(asg).add("test", "test2")
 
         val applicationTargetProps = AddApplicationTargetsProps.builder()
             .port(80)
@@ -110,7 +110,7 @@ class ComputeStack(
 
         httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
 
-        Key(this, "authentication-key", KeyProps.builder()
+        Key(this, "jwt-key", KeyProps.builder()
             .alias("authentication-key")
             .keyUsage(KeyUsage.SIGN_VERIFY)
             .keySpec(KeySpec.RSA_2048)
