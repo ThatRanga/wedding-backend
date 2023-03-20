@@ -49,7 +49,7 @@ class ComputeStack(
             "ALBListenerHttp", BaseApplicationListenerProps.builder()
                 .protocol(ApplicationProtocol.HTTP)
                 .port(80)
-                .defaultAction(ListenerAction.redirect(RedirectOptions.builder().port("443").build()))
+                .defaultAction(ListenerAction.redirect(RedirectOptions.builder().protocol("HTTPS").permanent(true).build()))
                 .build()
         )
 

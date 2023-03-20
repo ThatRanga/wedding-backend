@@ -119,8 +119,8 @@
     "DefaultActions": [
      {
       "RedirectConfig": {
-       "Port": "443",
-       "StatusCode": "HTTP_302"
+       "Protocol": "HTTPS",
+       "StatusCode": "HTTP_301"
       },
       "Type": "redirect"
      }

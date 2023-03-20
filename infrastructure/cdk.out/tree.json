@@ -221,8 +221,8 @@
                           {
                             "type": "redirect",
                             "redirectConfig": {
-                              "statusCode": "HTTP_302",
-                              "port": "443"
+                              "statusCode": "HTTP_301",
+                              "protocol": "HTTPS"
                             }
                           }
                         ],
