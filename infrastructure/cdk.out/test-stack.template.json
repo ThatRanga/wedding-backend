@@ -118,10 +118,11 @@
    "Properties": {
     "DefaultActions": [
      {
-      "TargetGroupArn": {
-       "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
+      "RedirectConfig": {
+       "Port": "443",
+       "StatusCode": "HTTP_302"
       },
-      "Type": "forward"
+      "Type": "redirect"
      }
     ],
     "LoadBalancerArn": {
@@ -132,29 +133,6 @@
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttp/Resource"
-   }
-  },
-  "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467": {
-   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-   "Properties": {
-    "HealthCheckPath": "/actuator/health",
-    "HealthCheckPort": "80",
-    "Matcher": {
-     "HttpCode": "200"
-    },
-    "Port": 80,
-    "Protocol": "HTTP",
-    "TargetGroupAttributes": [
-     {
-      "Key": "stickiness.enabled",
-      "Value": "false"
-     }
-    ],
-    "TargetType": "instance",
-    "VpcId": "vpc-0335b61a81f638466"
-   },
-   "Metadata": {
-    "aws:cdk:path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource"
    }
   },
   "simpleloadbalancerALBListenerHttpsE9721260": {
@@ -322,9 +300,6 @@
      }
     ],
     "TargetGroupARNs": [
-     {
-      "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
-     },
      {
       "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
      }

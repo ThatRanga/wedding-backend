@@ -219,9 +219,10 @@
                       "aws:cdk:cloudformation:props": {
                         "defaultActions": [
                           {
-                            "type": "forward",
-                            "targetGroupArn": {
-                              "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
+                            "type": "redirect",
+                            "redirectConfig": {
+                              "statusCode": "HTTP_302",
+                              "port": "443"
                             }
                           }
                         ],
@@ -234,44 +235,6 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
-                      "version": "2.68.0"
-                    }
-                  },
-                  "TargetGroupGroup": {
-                    "id": "TargetGroupGroup",
-                    "path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-                          "aws:cdk:cloudformation:props": {
-                            "healthCheckPath": "/actuator/health",
-                            "healthCheckPort": "80",
-                            "matcher": {
-                              "httpCode": "200"
-                            },
-                            "port": 80,
-                            "protocol": "HTTP",
-                            "targetGroupAttributes": [
-                              {
-                                "key": "stickiness.enabled",
-                                "value": "false"
-                              }
-                            ],
-                            "targetType": "instance",
-                            "vpcId": "vpc-0335b61a81f638466"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
-                          "version": "2.68.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
                       "version": "2.68.0"
                     }
                   }
@@ -516,9 +479,6 @@
                       }
                     ],
                     "targetGroupArns": [
-                      {
-                        "Ref": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
-                      },
                       {
                         "Ref": "simpleloadbalancerALBListenerHttpsTargetGroupHttpsGroupF6BA6573"
                       }

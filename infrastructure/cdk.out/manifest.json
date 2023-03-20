@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/f50434860f8fa9de0e3de359132c7bcd374a4b8a6ffe6efd32ba8ccf5ae3c203.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/a5d332f6e44f2616ed5a0e1f777de16f37fa02ef52a82d175e64d6f968192c12.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -57,37 +57,10 @@
             "data": "simpleloadbalancerSecurityGrouptoteststackAutoScalingGroupInstanceSecurityGroup3952351280AD3898A4"
           }
         ],
-        "/test-stack/simple-load-balancer/ALBListenerHttp": [
-          {
-            "type": "aws:cdk:warning",
-            "data": "A default Action already existed on this Listener and was replaced. Configure exactly one default Action.",
-            "trace": [
-              "Annotations.addMessage (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1071)",
-              "Annotations.addWarning (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/core/lib/annotations.js:1:504)",
-              "ApplicationListener._setDefaultAction (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/shared/base-listener.js:1:2030)",
-              "ApplicationListener.setDefaultAction (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:8439)",
-              "ApplicationListener.addTargetGroups (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:5352)",
-              "ApplicationListener.addTargets (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:6043)",
-              "/tmp/jsii-java-runtime16857049697838194278/lib/program.js:9764:105",
-              "Kernel._ensureSync (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:10353:28)",
-              "Kernel.invoke (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:9764:34)",
-              "KernelHost.processRequest (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11539:36)",
-              "KernelHost.run (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11499:22)",
-              "Immediate._onImmediate (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11500:46)",
-              "process.processImmediate (node:internal/timers:478:21)"
-            ]
-          }
-        ],
         "/test-stack/simple-load-balancer/ALBListenerHttp/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "simpleloadbalancerALBListenerHttp336CD0BF"
-          }
-        ],
-        "/test-stack/simple-load-balancer/ALBListenerHttp/TargetGroupGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "simpleloadbalancerALBListenerHttpTargetGroupGroupF353C467"
           }
         ],
         "/test-stack/simple-load-balancer/ALBListenerHttps/Resource": [

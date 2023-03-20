@@ -102,7 +102,6 @@ class ComputeStack(
             )
             .build()
 
-        httpListener.addTargets("TargetGroup", applicationTargetProps)
         httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
     }
 }
