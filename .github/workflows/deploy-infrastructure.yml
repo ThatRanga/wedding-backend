@@ -82,6 +82,9 @@ jobs:
         with:
             role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
             aws-region: ap-southeast-2
+      - name: Download dependencies
+        run: |
+          ./gradlew build
       - name: CDK synth
         shell: bash
         run: ./.github/scripts/cdk-synth.sh
