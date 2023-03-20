@@ -39,6 +39,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_READ_ROLE }}
           aws-region: ap-southeast-2
+          role-session-name: log-diff@githubactions
       - name: Download dependencies
         run: |
           ./gradlew build
@@ -83,6 +84,7 @@ jobs:
         with:
             role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE }}
             aws-region: ap-southeast-2
+            role-session-name: deploy-dev@githubactions
       - name: Download dependencies
         run: |
           ./gradlew build

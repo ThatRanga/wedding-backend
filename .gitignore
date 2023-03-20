@@ -7,6 +7,5 @@ build
 #Ignore dev env folders
 .idea
 
-#Ignore CDK output at top level
-/cdk.out
-cdk.context.json
+#Ignore CDK output
+cdk.out

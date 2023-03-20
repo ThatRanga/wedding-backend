@@ -24,6 +24,7 @@ jobs:
       with:
         role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE }}
         aws-region: ap-southeast-2
+        role-session-name: start-deploy@githubactions
     - name: Start pipeline
       shell: bash
       run: ./.github/scripts/start-pipeline.sh
@@ -49,6 +50,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_PIPELINE_ROLE }}
           aws-region: ap-southeast-2
+          role-session-name: wait-for-deploy@githubactions
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
