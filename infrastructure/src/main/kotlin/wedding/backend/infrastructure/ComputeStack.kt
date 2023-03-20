@@ -12,6 +12,9 @@ import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
 import software.amazon.awscdk.services.iam.ServicePrincipal
 import software.amazon.awscdk.services.kms.Key
+import software.amazon.awscdk.services.kms.KeyProps
+import software.amazon.awscdk.services.kms.KeySpec
+import software.amazon.awscdk.services.kms.KeyUsage
 import software.constructs.Construct
 import java.io.File
 
@@ -105,6 +108,10 @@ class ComputeStack(
 
         httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
 
-        Key(this, "authentication-key")
+        Key(this, "authentication-key", KeyProps.builder()
+            .alias("authentication-key")
+            .keyUsage(KeyUsage.SIGN_VERIFY)
+            .keySpec(KeySpec.SYMMETRIC_DEFAULT)
+            .build())
     }
 }
