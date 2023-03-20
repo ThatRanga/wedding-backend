@@ -6,12 +6,7 @@ import software.amazon.awscdk.services.autoscaling.AutoScalingGroupProps
 import software.amazon.awscdk.services.autoscaling.HealthCheck
 import software.amazon.awscdk.services.autoscaling.IAutoScalingGroup
 import software.amazon.awscdk.services.ec2.*
-import software.amazon.awscdk.services.elasticloadbalancingv2.AddApplicationTargetsProps
-import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancer
-import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationLoadBalancerProps
-import software.amazon.awscdk.services.elasticloadbalancingv2.ApplicationProtocol
-import software.amazon.awscdk.services.elasticloadbalancingv2.BaseApplicationListenerProps
-import software.amazon.awscdk.services.elasticloadbalancingv2.ListenerCertificate
+import software.amazon.awscdk.services.elasticloadbalancingv2.*
 import software.amazon.awscdk.services.iam.ManagedPolicy
 import software.amazon.awscdk.services.iam.Role
 import software.amazon.awscdk.services.iam.RoleProps
@@ -54,6 +49,7 @@ class ComputeStack(
             "ALBListenerHttp", BaseApplicationListenerProps.builder()
                 .protocol(ApplicationProtocol.HTTP)
                 .port(80)
+                .defaultAction(ListenerAction.redirect(RedirectOptions.builder().port("443").build()))
                 .build()
         )
 

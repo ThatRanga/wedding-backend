@@ -57,6 +57,27 @@
             "data": "simpleloadbalancerSecurityGrouptoteststackAutoScalingGroupInstanceSecurityGroup3952351280AD3898A4"
           }
         ],
+        "/test-stack/simple-load-balancer/ALBListenerHttp": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "A default Action already existed on this Listener and was replaced. Configure exactly one default Action.",
+            "trace": [
+              "Annotations.addMessage (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1071)",
+              "Annotations.addWarning (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/core/lib/annotations.js:1:504)",
+              "ApplicationListener._setDefaultAction (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/shared/base-listener.js:1:2030)",
+              "ApplicationListener.setDefaultAction (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:8439)",
+              "ApplicationListener.addTargetGroups (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:5352)",
+              "ApplicationListener.addTargets (/tmp/jsii-kernel-e3623k/node_modules/aws-cdk-lib/aws-elasticloadbalancingv2/lib/alb/application-listener.js:1:6043)",
+              "/tmp/jsii-java-runtime16857049697838194278/lib/program.js:9764:105",
+              "Kernel._ensureSync (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:10353:28)",
+              "Kernel.invoke (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:9764:34)",
+              "KernelHost.processRequest (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11539:36)",
+              "KernelHost.run (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11499:22)",
+              "Immediate._onImmediate (/tmp/jsii-java-runtime16857049697838194278/lib/program.js:11500:46)",
+              "process.processImmediate (node:internal/timers:478:21)"
+            ]
+          }
+        ],
         "/test-stack/simple-load-balancer/ALBListenerHttp/Resource": [
           {
             "type": "aws:cdk:logicalId",
