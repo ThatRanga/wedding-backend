@@ -49,7 +49,7 @@ class ComputeStack(
                 .build()
         )
 
-        val httpListener = loadBalancer.addListener(
+       loadBalancer.addListener(
             "ALBListenerHttp", BaseApplicationListenerProps.builder()
                 .protocol(ApplicationProtocol.HTTP)
                 .port(80)
@@ -111,7 +111,7 @@ class ComputeStack(
         Key(this, "authentication-key", KeyProps.builder()
             .alias("authentication-key")
             .keyUsage(KeyUsage.SIGN_VERIFY)
-            .keySpec(KeySpec.SYMMETRIC_DEFAULT)
+            .keySpec(KeySpec.RSA_2048)
             .build())
     }
 }

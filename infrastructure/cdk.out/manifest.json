@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-deploy-role-781525612065-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::781525612065:role/cdk-hnb659fds-cfn-exec-role-781525612065-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/ad70546f43178df8af59b74ef387ddc473e23d7bab37f838e1fe5d30a9874adb.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-781525612065-ap-southeast-2/d8c80c62df1388c4e8d335406930ed32d9996d24f525cf84e4c75536b42d72f1.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -115,6 +115,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "authenticationkey82B068A0"
+          }
+        ],
+        "/test-stack/authentication-key/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "authenticationkeyAliasCA8E9241"
           }
         ],
         "/test-stack/CDKMetadata/Default": [

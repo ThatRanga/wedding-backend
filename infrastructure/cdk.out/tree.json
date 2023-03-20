@@ -539,11 +539,43 @@
                         }
                       ],
                       "Version": "2012-10-17"
-                    }
+                    },
+                    "keySpec": "RSA_2048",
+                    "keyUsage": "SIGN_VERIFY"
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_kms.CfnKey",
+                  "version": "2.68.0"
+                }
+              },
+              "Alias": {
+                "id": "Alias",
+                "path": "test-stack/authentication-key/Alias",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "test-stack/authentication-key/Alias/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::KMS::Alias",
+                      "aws:cdk:cloudformation:props": {
+                        "aliasName": "alias/authentication-key",
+                        "targetKeyId": {
+                          "Fn::GetAtt": [
+                            "authenticationkey82B068A0",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_kms.CfnAlias",
+                      "version": "2.68.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_kms.Alias",
                   "version": "2.68.0"
                 }
               }

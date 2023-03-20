@@ -334,7 +334,9 @@
       }
      ],
      "Version": "2012-10-17"
-    }
+    },
+    "KeySpec": "RSA_2048",
+    "KeyUsage": "SIGN_VERIFY"
    },
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain",
@@ -342,10 +344,25 @@
     "aws:cdk:path": "test-stack/authentication-key/Resource"
    }
   },
+  "authenticationkeyAliasCA8E9241": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/authentication-key",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "authenticationkey82B068A0",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "test-stack/authentication-key/Alias/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Qy07DMBD8lt4dU3ooXKFCqNBDlXBHW3eTLnHsyI+iyvK/YyekCiBxmp2H1jte8fU9Xy7g0xbi2BaSDjxUDkTLSrTaG4Esee+BoOOh1BLZplYTbpV1oATuja5JYmQowToSUsPxADJZpJrzioeHvpckwJFWu+Q9Dh6avOMHn+fIOlTfmWme+W9gGnTPRvs+R2Y0nSHSmxUKb8hdrpH/hafGoLV/5K0a9MjAO20FyNQo9UmkGsl12w68EqeNVjU13gw3Zvl3NLK2szy84iW7CWLMwx4MdOjGvtPXR/YCZ7i5veNLvl58WKLCeOWoQ16O+AVx1hDhvwEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31RyU7DMBD9lt4dU3ooXEuFUKGHKuGOpu4kDHHsyEtRZfnfsRNSBZA4vXmLZtGs+PqeLxfwaQtxagtJRx4qB6JlJVrtjUCWvLdA0PFQaolsW6sJd8o6UAIPRtckMTKUYB0JqeF0BJksUs15xcOm7yUJcKTVPnkPg4cm9/jB5zmyDtV3Zqpn/iuYBt2T0b7PkRlNa4g0s0LhDbnLNfK/8NgYtPaPvFODHhl4p60AmS5K9yRSjeTabQ9eifetVjU13gw7Zvl3NLK2szy84CW7GTaSYBg8FDHm8gAGOnTj+dMnInuGM9zc3vElXy8+LFFhvHLUIS9H/ALXUNFBzgEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "test-stack/CDKMetadata/Default"
