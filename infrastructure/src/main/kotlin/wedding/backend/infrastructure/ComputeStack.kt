@@ -93,7 +93,7 @@ class ComputeStack(
                 .build()
         )
 
-        Tags.of(asg).add("test", "test4")
+        Tags.of(asg).add("test", "test5")
 
         val applicationTargetProps = AddApplicationTargetsProps.builder()
             .port(80)
