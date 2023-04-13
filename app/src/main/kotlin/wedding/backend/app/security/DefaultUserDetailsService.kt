@@ -7,25 +7,30 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
+import wedding.backend.app.model.User
+import wedding.backend.app.services.UserService
 
 @Service
-class DefaultUserDetailsService: UserDetailsService {
+class DefaultUserDetailsService(private val userService: UserService): UserDetailsService {
 
     override fun loadUserByUsername(username: String?): UserDetails {
         if (username == null) {
             throw UsernameNotFoundException("User not found")
         }
 
-        return DefaultUserDetails(1L, username, "testEmail", "1234", listOf(SimpleGrantedAuthority("ROLE_ADMIN")))
+        val user = userService.getUser(username)
+
+        return DefaultUserDetails(user)
     }
 
     class DefaultUserDetails(
-        private val id: Long,
         private val username: String,
         private val email: String,
         @JsonIgnore private val password: String,
         private val authorities: Collection<GrantedAuthority>
     ): UserDetails {
+        constructor(user: User) : this(user.username, user.email, user.password, user.roles.map { role -> role.toGrantedAuthority() })
+
         override fun getAuthorities(): MutableCollection<out GrantedAuthority> = authorities.toMutableList()
 
         override fun getPassword(): String = password
@@ -46,13 +51,12 @@ class DefaultUserDetailsService: UserDetailsService {
                 false
             } else {
                 val user: DefaultUserDetails = other as DefaultUserDetails
-                this.id == user.id
+                this.username == user.username
             }
         }
 
         override fun hashCode(): Int {
-            var result = id.hashCode()
-            result = 31 * result + username.hashCode()
+            var result = username.hashCode()
             result = 31 * result + email.hashCode()
             result = 31 * result + authorities.hashCode()
             return result
