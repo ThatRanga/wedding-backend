@@ -4,7 +4,7 @@ import software.amazon.awscdk.*
 import software.amazon.awscdk.services.autoscaling.AutoScalingGroup
 import software.amazon.awscdk.services.autoscaling.AutoScalingGroupProps
 import software.amazon.awscdk.services.autoscaling.HealthCheck
-import software.amazon.awscdk.services.autoscaling.IAutoScalingGroup
+import software.amazon.awscdk.services.dynamodb.*
 import software.amazon.awscdk.services.ec2.*
 import software.amazon.awscdk.services.elasticloadbalancingv2.*
 import software.amazon.awscdk.services.iam.ManagedPolicy
@@ -21,8 +21,6 @@ import java.io.File
 class ComputeStack(
     scope: Construct, id: String, props: StackProps
 ) : Stack(scope, id, props) {
-    val asg: AutoScalingGroup
-
     init {
         // Get the default VPC. This is the network where your instance will be provisioned
         // All activated regions in AWS have a default vpc.
@@ -36,9 +34,11 @@ class ComputeStack(
             this,
             "simple-instance-1-role", // this is a unique id that will represent this resource in a Cloudformation template
             RoleProps.builder().assumedBy(ServicePrincipal("ec2.amazonaws.com"))
-                .managedPolicies(listOf(
-                    ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforAWSCodeDeploy")
-                ))
+                .managedPolicies(
+                    listOf(
+                        ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforAWSCodeDeploy")
+                    )
+                )
                 .build()
         )
 
@@ -49,11 +49,15 @@ class ComputeStack(
                 .build()
         )
 
-       loadBalancer.addListener(
+        loadBalancer.addListener(
             "ALBListenerHttp", BaseApplicationListenerProps.builder()
                 .protocol(ApplicationProtocol.HTTP)
                 .port(80)
-                .defaultAction(ListenerAction.redirect(RedirectOptions.builder().protocol("HTTPS").permanent(true).build()))
+                .defaultAction(
+                    ListenerAction.redirect(
+                        RedirectOptions.builder().protocol("HTTPS").permanent(true).build()
+                    )
+                )
                 .build()
         )
 
@@ -68,7 +72,7 @@ class ComputeStack(
         val userData = File("../scripts/ec2/startup.sh").readText()
 
         // Provision ASG for EC2 instances
-        asg = AutoScalingGroup(
+        val asg = AutoScalingGroup(
             this, "AutoScalingGroup", AutoScalingGroupProps.builder()
                 .vpc(defaultVpc)
                 .role(role)
@@ -108,10 +112,22 @@ class ComputeStack(
 
         httpsListener.addTargets("TargetGroupHttps", applicationTargetProps)
 
-        Key(this, "jwt-key", KeyProps.builder()
-            .alias("authentication-key")
-            .keyUsage(KeyUsage.SIGN_VERIFY)
-            .keySpec(KeySpec.RSA_2048)
-            .build())
+        Key(
+            this, "jwt-key", KeyProps.builder()
+                .alias("authentication-key")
+                .keyUsage(KeyUsage.SIGN_VERIFY)
+                .keySpec(KeySpec.RSA_2048)
+                .build()
+        )
+
+        Table(
+            this, "table", TableProps.builder()
+                .tableName("wedding-data")
+                .partitionKey(Attribute.builder().name("PK").type(AttributeType.STRING).build())
+                .billingMode(BillingMode.PROVISIONED)
+                .readCapacity(10)
+                .writeCapacity(10)
+                .build()
+        )
     }
 }

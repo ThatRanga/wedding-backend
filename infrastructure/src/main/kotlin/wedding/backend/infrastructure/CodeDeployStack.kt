@@ -18,8 +18,7 @@ import software.constructs.Construct
 
 val CODE_DEPLOY_EC2_TAG = Pair("code-deploy", "wedding-backend")
 
-class CodeDeployStack(scope: Construct, id: String, props: StackProps, asg: AutoScalingGroup
-) : Stack(scope, id, props)  {
+class CodeDeployStack(scope: Construct, id: String, props: StackProps) : Stack(scope, id, props)  {
     init {
         val deployApplication = ServerApplication(this, "wedding-CodeDeployApplication", ServerApplicationProps.builder()
             .applicationName("wedding-backend").build())
@@ -48,7 +47,7 @@ class CodeDeployStack(scope: Construct, id: String, props: StackProps, asg: Auto
         val sourceArtifact = Artifact("sourceArtifact")
         val buildArtifact = Artifact("buildArtifact")
 
-        val deployPipeline = Pipeline(this, "DefaultPipeline", PipelineProps.builder()
+      Pipeline(this, "DefaultPipeline", PipelineProps.builder()
             .pipelineName("DefaultPipeline")
             .crossAccountKeys(false)
             .stages(listOf(
