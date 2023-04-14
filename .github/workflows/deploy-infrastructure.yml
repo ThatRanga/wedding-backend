@@ -5,6 +5,7 @@ on:
       - 'main'
     paths:
       - 'infrastructure/**'
+      - 'scripts/ec2/**'
       - 'cdk.json'
 
 jobs:
