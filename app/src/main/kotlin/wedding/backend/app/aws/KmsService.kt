@@ -19,12 +19,12 @@ class KmsService(private val awsProperties: AwsProperties) {
 
     suspend fun sign(headerBytes: ByteArray, payloadBytes: ByteArray, alias: String): String {
         val signKeyId = kmsClient.describeKey {
-            keyId = "alias/${alias}"
+            keyId = alias
         }.keyMetadata?.keyId
 
         val contentBytes = headerBytes + '.'.code.toByte() + payloadBytes
         val signResponse = kmsClient.sign {
-            keyId = signKeyId ?: throw Error("Couldn't find key for alias 'alias/${alias}'")
+            keyId = signKeyId ?: throw Error("Couldn't find key for alias '${alias}'")
             messageType = MessageType.Raw
             message = contentBytes
             signingAlgorithm = SigningAlgorithmSpec.RsassaPkcs1V1_5_Sha256
@@ -35,7 +35,7 @@ class KmsService(private val awsProperties: AwsProperties) {
 
     suspend fun verify(signableContent: ByteArray, signature: ByteArray, alias: String): VerifyResponse {
         val signKeyId = kmsClient.describeKey {
-            keyId = "alias/${alias}"
+            keyId = alias
         }.keyMetadata?.keyId
 
         return kmsClient.verify {
@@ -49,7 +49,7 @@ class KmsService(private val awsProperties: AwsProperties) {
     suspend fun aliasExist(alias: String): Boolean {
         val aliases = kmsClient.listAliases()
 
-        return aliases.aliases?.any { it.aliasName == "alias/${alias}" } ?: false
+        return aliases.aliases?.any { it.aliasName == alias } ?: false
     }
     suspend fun createKeyWithAlias(alias: String) {
         val response = kmsClient.createKey {
@@ -63,7 +63,7 @@ class KmsService(private val awsProperties: AwsProperties) {
 
         kmsClient.createAlias {
             targetKeyId = response.keyMetadata?.keyId
-            aliasName = "alias/${alias}"
+            aliasName = alias
         }
     }
 }

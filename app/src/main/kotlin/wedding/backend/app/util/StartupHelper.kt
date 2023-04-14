@@ -10,6 +10,7 @@ import wedding.backend.app.aws.KmsService
 import wedding.backend.app.model.Role
 import wedding.backend.app.model.User
 import wedding.backend.app.properties.DynamoProperties
+import wedding.backend.app.properties.KmsProperties
 import wedding.backend.app.services.UserService
 
 @Component
@@ -18,6 +19,7 @@ class StartupHelper(
     private val dynamoService: DynamoService,
     private val passwordEncoder: PasswordEncoder,
     private val dynamoProperties: DynamoProperties,
+    private val kmsProperties: KmsProperties,
     private val userService: UserService
 ) {
 
@@ -30,8 +32,8 @@ class StartupHelper(
     }
 
     private suspend fun setupKms() {
-        if (!kmsService.aliasExist("authentication-key")) {
-            kmsService.createKeyWithAlias("authentication-key")
+        if (!kmsService.aliasExist(kmsProperties.authenticationAlias)) {
+            kmsService.createKeyWithAlias(kmsProperties.authenticationAlias)
         }
     }
 

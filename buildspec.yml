@@ -15,5 +15,6 @@ artifacts:
     - app/build/libs/app*SNAPSHOT.jar
     - scripts/server/*.sh
     - appspec.yml
+    - amazon-cloudwatch-agent.json
   discard-paths: yes
 

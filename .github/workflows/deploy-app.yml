@@ -8,7 +8,7 @@ on:
       - 'buildSrc/**'
       - 'buildspec.yml'
       - 'appspec.yml'
-      - 'scripts/**'
+      - 'scripts/server/**'
 
 jobs:
   start-deploy-dev:

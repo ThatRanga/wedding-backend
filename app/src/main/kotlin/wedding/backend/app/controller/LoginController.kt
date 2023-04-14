@@ -1,6 +1,7 @@
 package wedding.backend.app.controller
 
 import com.auth0.jwt.JWT
+import org.slf4j.Logger
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -18,12 +19,21 @@ import wedding.backend.app.services.JwtService
 
 @RestController
 @RequestMapping("/identity")
-class LoginController(private val jwtService: JwtService, private val authenticationManager: AuthenticationManager) {
+class LoginController(
+    private val jwtService: JwtService,
+    private val authenticationManager: AuthenticationManager,
+    private val logger: Logger
+) {
 
     @PostMapping("/login")
     fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<LoginResponse> {
         return try {
-            val authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password))
+            val authentication = authenticationManager.authenticate(
+                UsernamePasswordAuthenticationToken(
+                    loginRequest.username,
+                    loginRequest.password
+                )
+            )
             SecurityContextHolder.getContext().authentication = authentication
 
             val userDetails = authentication.principal as DefaultUserDetailsService.DefaultUserDetails
@@ -47,7 +57,7 @@ class LoginController(private val jwtService: JwtService, private val authentica
                 ResponseEntity.badRequest().body(VerifyResponse(false))
             }
         } catch (e: Exception) {
-            println(e)
+            logger.error("Error while validating token", e)
             return ResponseEntity.badRequest().body(VerifyResponse(false))
         }
     }

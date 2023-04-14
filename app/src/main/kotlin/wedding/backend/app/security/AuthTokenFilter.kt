@@ -1,7 +1,6 @@
 package wedding.backend.app.security
 
 import com.auth0.jwt.JWT
-import com.auth0.jwt.RegisteredClaims
 import com.auth0.jwt.interfaces.DecodedJWT
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import wedding.backend.app.services.JwtService
 import wedding.backend.app.util.getUsername
@@ -38,9 +36,7 @@ class AuthTokenFilter(
                 }
             }
         } catch (e: Exception) {
-            println("Test here")
-            println("Error while extracting auth token")
-            println(e.message)
+            logger.error("Error while extracting auth token", e)
         }
 
         filterChain.doFilter(request, response)
