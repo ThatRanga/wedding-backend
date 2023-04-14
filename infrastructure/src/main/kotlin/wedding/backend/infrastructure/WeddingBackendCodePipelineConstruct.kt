@@ -17,7 +17,6 @@ class WeddingBackendCodePipelineConstruct(scope: Construct, env: String, asg: Au
 
             val deploymentGroup = ServerDeploymentGroup(this, "${this.node.id}-deployment-group", ServerDeploymentGroupProps.builder()
                 .application(deployApplication)
-                .installAgent(true)
                 .autoScalingGroups(listOf(asg))
                 .autoRollback(
                     AutoRollbackConfig.builder()
