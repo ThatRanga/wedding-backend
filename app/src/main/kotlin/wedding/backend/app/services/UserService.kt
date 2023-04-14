@@ -3,16 +3,16 @@ package wedding.backend.app.services
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import wedding.backend.app.aws.DynamoService
+import wedding.backend.app.configuration.DynamoConfiguration
 import wedding.backend.app.model.User
-import wedding.backend.app.properties.DynamoProperties
 
 @Service
-class UserService(private val dynamoService: DynamoService, private val dynamoProperties: DynamoProperties) {
+class UserService(private val dynamoService: DynamoService, private val dynamoConfiguration: DynamoConfiguration) {
 
     fun getUser(username: String): User {
         val dynamoItem = runBlocking {
             dynamoService.getItem(
-                dynamoProperties.tableName,
+                dynamoConfiguration.tableName,
                 User.createPartitionKey(username)
             )
         }
@@ -22,7 +22,7 @@ class UserService(private val dynamoService: DynamoService, private val dynamoPr
 
     fun addUser(user: User) {
         runBlocking {
-            dynamoService.saveItem(dynamoProperties.tableName, user.toDynamoItem())
+            dynamoService.saveItem(dynamoConfiguration.tableName, user)
         }
     }
 }

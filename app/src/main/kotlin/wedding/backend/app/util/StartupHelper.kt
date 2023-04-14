@@ -7,10 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import wedding.backend.app.aws.DynamoService
 import wedding.backend.app.aws.KmsService
+import wedding.backend.app.configuration.DynamoConfiguration
+import wedding.backend.app.configuration.KmsConfiguration
 import wedding.backend.app.model.Role
 import wedding.backend.app.model.User
-import wedding.backend.app.properties.DynamoProperties
-import wedding.backend.app.properties.KmsProperties
 import wedding.backend.app.services.UserService
 
 @Component
@@ -18,8 +18,8 @@ class StartupHelper(
     private val kmsService: KmsService,
     private val dynamoService: DynamoService,
     private val passwordEncoder: PasswordEncoder,
-    private val dynamoProperties: DynamoProperties,
-    private val kmsProperties: KmsProperties,
+    private val dynamoConfiguration: DynamoConfiguration,
+    private val kmsConfiguration: KmsConfiguration,
     private val userService: UserService
 ) {
 
@@ -32,14 +32,14 @@ class StartupHelper(
     }
 
     private suspend fun setupKms() {
-        if (!kmsService.aliasExist(kmsProperties.authenticationAlias)) {
-            kmsService.createKeyWithAlias(kmsProperties.authenticationAlias)
+        if (!kmsService.aliasExist(kmsConfiguration.authenticationAlias)) {
+            kmsService.createKeyWithAlias(kmsConfiguration.authenticationAlias)
         }
     }
 
     private suspend fun setupDynamo() {
-        if (!dynamoService.tableExist(dynamoProperties.tableName)) {
-            dynamoService.createTable(dynamoProperties.tableName, dynamoProperties.pkField)
+        if (!dynamoService.tableExist(dynamoConfiguration.tableName)) {
+            dynamoService.createTable(dynamoConfiguration.tableName, dynamoConfiguration.pkField)
             userService.addUser( User(
                     "admin@admin.com",
                     "admin@admin.com",

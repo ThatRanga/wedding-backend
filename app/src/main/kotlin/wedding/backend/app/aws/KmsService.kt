@@ -2,19 +2,11 @@ package wedding.backend.app.aws
 
 import aws.sdk.kotlin.services.kms.*
 import aws.sdk.kotlin.services.kms.model.*
-import aws.smithy.kotlin.runtime.net.Url
 import org.springframework.stereotype.Service
-import wedding.backend.app.properties.AwsProperties
 import java.util.*
 
 @Service
-class KmsService(private val awsProperties: AwsProperties) {
-    private val kmsClient: KmsClient =
-        KmsClient {
-            region = awsProperties.region
-            if(awsProperties.endpoint.isNotEmpty()) endpointUrl = Url.parse(awsProperties.endpoint)
-        }
-
+class KmsService(private val kmsClient: KmsClient) {
     private val base64UrlEncoder = Base64.getUrlEncoder().withoutPadding()
 
     suspend fun sign(headerBytes: ByteArray, payloadBytes: ByteArray, alias: String): String {

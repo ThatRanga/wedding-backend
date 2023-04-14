@@ -2,16 +2,11 @@ package wedding.backend.app.aws
 
 import aws.sdk.kotlin.services.dynamodb.*
 import aws.sdk.kotlin.services.dynamodb.model.*
-import aws.smithy.kotlin.runtime.net.Url
 import org.springframework.stereotype.Service
-import wedding.backend.app.properties.AwsProperties
+import wedding.backend.app.model.DynamoItem
 
 @Service
-class DynamoService(private val awsProperties: AwsProperties) {
-    private val dynamoDb = DynamoDbClient {
-        region = awsProperties.region
-        if (awsProperties.endpoint.isNotBlank()) endpointUrl = Url.parse(awsProperties.endpoint)
-    }
+class DynamoService(private val dynamoDb: DynamoDbClient) {
 
     suspend fun createTable(tableName: String, hashAttribute: String, rangeAttribute: String? = null) {
         val keySchema = mutableListOf(KeySchemaElement.invoke {
@@ -73,10 +68,10 @@ class DynamoService(private val awsProperties: AwsProperties) {
         }.item
     }
 
-    suspend fun saveItem(tableName: String, item: Map<String, AttributeValue>) {
+    suspend fun saveItem(tableName: String, item: DynamoItem) {
         dynamoDb.putItem {
             this.tableName = tableName
-            this.item = item
+            this.item = item.toDynamoItem()
         }
     }
 }

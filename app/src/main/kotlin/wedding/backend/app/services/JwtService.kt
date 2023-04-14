@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
 import wedding.backend.app.aws.KmsService
-import wedding.backend.app.properties.KmsProperties
+import wedding.backend.app.configuration.KmsConfiguration
 import java.nio.charset.StandardCharsets
 import java.util.*
 
@@ -15,7 +15,7 @@ import java.util.*
 class JwtService(
     private val kmsService: KmsService,
     private val objectMapper: ObjectMapper,
-    private val kmsProperties: KmsProperties
+    private val kmsConfiguration: KmsConfiguration
 ) {
     private val base64UrlEncoder = Base64.getUrlEncoder().withoutPadding()
     private val base64UrlDecoder = Base64.getUrlDecoder()
@@ -48,7 +48,7 @@ class JwtService(
         val signature = base64UrlDecoder.decode(jwt.signature)
 
         val result = runBlocking {
-            kmsService.verify(signableContent, signature, kmsProperties.authenticationAlias)
+            kmsService.verify(signableContent, signature, kmsConfiguration.authenticationAlias)
         }
 
         return result.signatureValid
@@ -65,7 +65,7 @@ class JwtService(
             kmsService.sign(
                 header.toByteArray(StandardCharsets.UTF_8),
                 payload.toByteArray(StandardCharsets.UTF_8),
-                kmsProperties.authenticationAlias
+                kmsConfiguration.authenticationAlias
             )
         }
 
