@@ -8,3 +8,4 @@ wget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/lates
 sudo chmod +x ./install
 sudo ./install auto
 sudo yum -y install java-17-amazon-corretto-devel
+sudo yum install amazon-cloudwatch-agent
