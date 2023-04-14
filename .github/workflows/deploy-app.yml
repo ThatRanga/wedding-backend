@@ -4,7 +4,8 @@ on:
     branches:
       - 'main'
     paths:
-      - 'app/**'
+      - 'app/src/main/**'
+      - 'app/src/build.gradle.kts'
       - 'buildSrc/**'
       - 'buildspec.yml'
       - 'appspec.yml'

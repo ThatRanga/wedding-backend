@@ -4,7 +4,8 @@ on:
     branches:
       - 'main'
     paths:
-      - 'infrastructure/**'
+      - 'infrastructure/src/main/**'
+      - 'infrastructure/src/build.gradle.kts'
       - 'scripts/ec2/**'
       - 'cdk.json'
       - '.github/workflows/deploy-infrastructure.yml'
