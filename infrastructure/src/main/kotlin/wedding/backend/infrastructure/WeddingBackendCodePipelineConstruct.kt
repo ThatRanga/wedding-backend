@@ -41,6 +41,7 @@ class WeddingBackendCodePipelineConstruct(scope: Construct, env: String, asg: Au
             val buildArtifact = Artifact("buildArtifact")
 
             Pipeline(this, "${this.node.id}-pipeline", PipelineProps.builder()
+                .pipelineName("${env}-wedding-backend-pipeline")
                 .crossAccountKeys(false)
                 .stages(listOf(
                     StageProps.builder()
