@@ -37,7 +37,8 @@ class ComputeStack(
                 .managedPolicies(
                     listOf(
                         ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforAWSCodeDeploy"),
-                        ManagedPolicy.fromAwsManagedPolicyName("CloudWatchAgentServerPolicy")
+                        ManagedPolicy.fromAwsManagedPolicyName("CloudWatchAgentServerPolicy"),
+                        ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforSSM")
                     )
                 )
                 .build()
