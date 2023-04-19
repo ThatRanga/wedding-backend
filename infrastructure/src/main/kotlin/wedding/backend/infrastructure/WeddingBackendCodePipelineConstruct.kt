@@ -11,11 +11,11 @@ import software.amazon.awscdk.services.codepipeline.actions.*
 import software.constructs.Construct
 
 class WeddingBackendCodePipelineConstruct(scope: Construct, env: String, asg: AutoScalingGroup) :
-    Construct(scope, "${scope.node.id}-code-pipeline") {
+    Construct(scope, "code-pipeline") {
         init {
-            val deployApplication = ServerApplication(this, "${this.node.id}-deploy-application")
+            val deployApplication = ServerApplication(this, "deploy-application")
 
-            val deploymentGroup = ServerDeploymentGroup(this, "${this.node.id}-deployment-group", ServerDeploymentGroupProps.builder()
+            val deploymentGroup = ServerDeploymentGroup(this, "deployment-group", ServerDeploymentGroupProps.builder()
                 .application(deployApplication)
                 .autoScalingGroups(listOf(asg))
                 .autoRollback(
@@ -25,7 +25,7 @@ class WeddingBackendCodePipelineConstruct(scope: Construct, env: String, asg: Au
                     .build())
                 .build())
 
-            val codeBuildProject = PipelineProject(this, "${this.node.id}-build-project", PipelineProjectProps.builder()
+            val codeBuildProject = PipelineProject(this, "build-project", PipelineProjectProps.builder()
                 .concurrentBuildLimit(1)
                 .buildSpec(BuildSpec.fromSourceFilename("buildspec.yml"))
                 .environment(
@@ -39,7 +39,7 @@ class WeddingBackendCodePipelineConstruct(scope: Construct, env: String, asg: Au
             val sourceArtifact = Artifact("sourceArtifact")
             val buildArtifact = Artifact("buildArtifact")
 
-            Pipeline(this, "${this.node.id}-pipeline", PipelineProps.builder()
+            Pipeline(this, "pipeline", PipelineProps.builder()
                 .pipelineName("${env}-wedding-backend-pipeline")
                 .crossAccountKeys(false)
                 .stages(listOf(

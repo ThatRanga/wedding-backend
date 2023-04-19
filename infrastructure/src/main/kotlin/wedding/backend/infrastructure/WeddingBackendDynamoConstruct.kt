@@ -3,10 +3,10 @@ package wedding.backend.infrastructure
 import software.amazon.awscdk.services.dynamodb.*
 import software.constructs.Construct
 
-class WeddingBackendDynamoConstruct(scope: Construct, env: String): Construct(scope, "${scope.node.id}-dynamo") {
+class WeddingBackendDynamoConstruct(scope: Construct, env: String): Construct(scope, "dynamo") {
     init {
         Table(
-            this, "${this.node.id}-table", TableProps.builder()
+            this, "table", TableProps.builder()
                 .tableName("${env}-wedding-data")
                 .partitionKey(Attribute.builder().name("PK").type(AttributeType.STRING).build())
                 .billingMode(BillingMode.PROVISIONED)

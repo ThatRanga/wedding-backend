@@ -7,38 +7,26 @@ import software.amazon.awscdk.StackProps
 fun main() {
     val app = App()
 
-    WeddingBackendStack(app, "prod-wedding-backend", "prod", StackProps.builder()
+    WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", StackProps.builder()
         .env(
             Environment.builder()
                 .account("781525612065")
                 .region("ap-southeast-2")
                 .build()
         )
-        .build())
-//
-//    val computeStack = ComputeStack(
-//        app, "test-stack", StackProps.builder()
-//            .env(
-//                Environment.builder()
-//                    .account("781525612065")
-//                    .region("ap-southeast-2")
-//                    .build()
-//            )
-//            .build()
-//    )
-//
-//    val codeDeployStack = CodeDeployStack(
-//        computeStack, "test-code-deploy", StackProps.builder()
-//            .env(
-//                Environment.builder()
-//                    .account("781525612065")
-//                    .region("ap-southeast-2")
-//                    .build()
-//            )
-//            .build()
-//    )
-//
-//    codeDeployStack.addDependency(computeStack)
+        .build()
+    )
+
+    WeddingBackendDataStack(app, "prod-wedding-backend-data", "prod", StackProps.builder()
+        .env(
+            Environment.builder()
+                .account("781525612065")
+                .region("ap-southeast-2")
+                .build()
+        )
+        .terminationProtection(true)
+        .build()
+    )
 
     app.synth()
 }
