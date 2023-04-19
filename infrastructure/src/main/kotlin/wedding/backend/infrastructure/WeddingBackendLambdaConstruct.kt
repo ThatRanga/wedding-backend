@@ -41,7 +41,7 @@ class WeddingBackendLambdaConstruct(scope: Construct, vpc: IVpc, functionName: S
         val function = Function(this, functionName, FunctionProps.builder()
             .runtime(Runtime.JAVA_11)
             .vpc(vpc)
-            .code(Code.fromAsset("~/src/wedding-backend/${functionName}", AssetOptions.builder()
+            .code(Code.fromAsset("../${functionName}", AssetOptions.builder()
                 .bundling(builderOptions)
                 .build()
             ))
