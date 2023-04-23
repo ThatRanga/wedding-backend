@@ -4,6 +4,14 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.tmp/
+caches/
+daemon/
+jdks/
+kotlin-profile/
+native/
+notifications/
+wrapper/
 
 ### STS ###
 .apt_generated

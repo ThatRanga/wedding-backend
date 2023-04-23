@@ -20,7 +20,7 @@ class WeddingBackendLambdaConstruct(scope: Construct, vpc: IVpc, functionName: S
         val packagingInstructions = listOf(
             "/bin/sh",
             "-c",
-            "./gradlew -g \$PWD :${functionName}:shadowJar",
+            "./gradlew -g \$PWD shadowJar",
             "&& cp /asset-input/${functionName}/build/libs/${functionName}.jar /asset-output/"
         )
 

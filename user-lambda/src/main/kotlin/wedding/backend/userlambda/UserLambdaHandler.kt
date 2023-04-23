@@ -3,16 +3,12 @@ package wedding.backend.userlambda
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.sqs.SqsClient
-import aws.sdk.kotlin.services.sqs.sendMessage
 import aws.smithy.kotlin.runtime.content.toByteArray
-import aws.smithy.kotlin.runtime.content.writeToFile
 import com.amazonaws.services.lambda.runtime.Context
 import com.amazonaws.services.lambda.runtime.RequestHandler
 import com.amazonaws.services.lambda.runtime.events.S3Event
-import com.amazonaws.services.lambda.runtime.events.S3ObjectLambdaEvent
 import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayInputStream
-import java.io.File
 
 
 class UserLambdaApplication : RequestHandler<S3Event, Unit> {
