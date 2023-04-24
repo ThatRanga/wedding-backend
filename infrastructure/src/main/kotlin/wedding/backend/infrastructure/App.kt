@@ -6,25 +6,24 @@ import software.amazon.awscdk.StackProps
 
 fun main() {
     val app = App()
-    val stackPropsBuilder = StackProps.builder()
-        .env(
-            Environment.builder()
-                .account("781525612065")
-                .region("ap-southeast-2")
-                .build()
-        )
 
-    val network = WeddingBackendNetworkStack(app, "prod-wedding-backend-network", stackPropsBuilder.build())
+    val network = WeddingBackendNetworkStack(app, "prod-wedding-backend-network", getStackProps())
 
-    WeddingBackendDataStack(
-        app, "prod-wedding-backend-data", "prod", stackPropsBuilder
-            .terminationProtection(true)
-            .build()
-    )
+    WeddingBackendDataStack(app, "prod-wedding-backend-data", "prod", getStackProps(terminationProtection = true))
 
-    WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, stackPropsBuilder.build())
+    WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, getStackProps())
 
-    WeddingBackendUserUploadStack(app, "prod-wedding-user-upload", "prod", network.vpc, stackPropsBuilder.build())
+    WeddingBackendUserUploadStack(app, "prod-wedding-user-upload", "prod", network.vpc, getStackProps())
 
     app.synth()
 }
+
+fun getStackProps(terminationProtection: Boolean = false): StackProps = StackProps.builder()
+    .env(
+        Environment.builder()
+            .account("781525612065")
+            .region("ap-southeast-2")
+            .build()
+    )
+    .terminationProtection(terminationProtection)
+    .build()

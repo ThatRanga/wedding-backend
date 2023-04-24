@@ -11,7 +11,7 @@ class WeddingBackendUserUploadS3Construct(scope: Construct, env: String): Constr
     val bucket: Bucket
     init {
         bucket = Bucket(this, "user-data", BucketProps.builder()
-            .bucketName("${env}-user-data")
+            .bucketName("${env}-wedding-backend-user-upload-user-data")
             .enforceSsl(true)
             .autoDeleteObjects(true)
             .removalPolicy(RemovalPolicy.DESTROY)
