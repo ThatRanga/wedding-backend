@@ -39,7 +39,6 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
 
         val function = Function(this, "user-lambda", FunctionProps.builder()
             .runtime(Runtime.JAVA_11)
-            .vpc(vpc)
             .code(Code.fromAsset("../user-lambda", AssetOptions.builder()
                 .bundling(builderOptions)
                 .build()
@@ -51,7 +50,7 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
             )
             .handler("wedding.backend.userlambda.UserLambdaHandler")
             .memorySize(512)
-            .allowPublicSubnet(true)
+            .allowPublicSubnet(false)
             .timeout(Duration.minutes(1))
             .logRetention(RetentionDays.ONE_WEEK)
             .build())
