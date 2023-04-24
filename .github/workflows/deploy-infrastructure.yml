@@ -9,6 +9,7 @@ on:
       - 'scripts/ec2/**'
       - 'cdk.json'
       - '.github/workflows/deploy-infrastructure.yml'
+      - 'user-lambda/src/**'
 
 jobs:
   log-diff:

@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayInputStream
 
 
-class UserLambdaApplication : RequestHandler<S3Event, Unit> {
+class UserLambdaHandler : RequestHandler<S3Event, Unit> {
 
     override fun handleRequest(input: S3Event?, context: Context?) {
         val s3Client = S3Client { region = REGION }
