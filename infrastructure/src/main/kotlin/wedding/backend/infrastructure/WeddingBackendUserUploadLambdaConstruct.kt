@@ -50,7 +50,7 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
                 "CodeVersionString" to System.getenv("BUILD_NO"))
             )
             .handler("wedding.backend.userlambda.UserLambdaHandler")
-            .memorySize(128)
+            .memorySize(512)
             .allowPublicSubnet(true)
             .timeout(Duration.minutes(1))
             .logRetention(RetentionDays.ONE_WEEK)
