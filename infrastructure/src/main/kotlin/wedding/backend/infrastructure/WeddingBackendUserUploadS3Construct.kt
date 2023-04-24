@@ -7,7 +7,7 @@ import software.amazon.awscdk.services.s3.BucketProps
 import software.amazon.awscdk.services.s3.LifecycleRule
 import software.constructs.Construct
 
-class WeddingBackendS3Construct(scope: Construct, env: String): Construct(scope, "bucket") {
+class WeddingBackendUserUploadS3Construct(scope: Construct, env: String): Construct(scope, "bucket") {
     val bucket: Bucket
     init {
         bucket = Bucket(this, "user-data", BucketProps.builder()
@@ -17,7 +17,7 @@ class WeddingBackendS3Construct(scope: Construct, env: String): Construct(scope,
             .removalPolicy(RemovalPolicy.DESTROY)
             .lifecycleRules(listOf(LifecycleRule.builder()
                 .id("TTL for objects")
-                .expiration(Duration.hours(1))
+                .expiration(Duration.days(1))
                 .build()))
             .build())
     }
