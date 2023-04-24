@@ -26,6 +26,9 @@ class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, v
                     .build()
                 )
             ))
+            .managedPolicies(listOf(
+                ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole")
+            ))
             .build()
         )
 
