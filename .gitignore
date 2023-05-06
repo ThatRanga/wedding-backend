@@ -9,3 +9,5 @@ build
 
 #Ignore CDK output
 cdk.out
+
+.java-version
