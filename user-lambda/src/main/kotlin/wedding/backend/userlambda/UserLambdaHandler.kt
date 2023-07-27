@@ -14,6 +14,8 @@ import java.io.ByteArrayInputStream
 class UserLambdaHandler : RequestHandler<S3Event, Unit> {
 
     override fun handleRequest(input: S3Event?, context: Context?) {
+        val logger = context?.logger
+
         val s3Client = S3Client { region = REGION }
         val sqsClient = SqsClient { region = REGION }
 
@@ -24,6 +26,8 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
         val s3Record = input.records.first().s3
         val bucketName = s3Record.bucket.name
         val fileName = s3Record.`object`.key
+
+        logger?.log("Bucket Name: ${bucketName}, File Name: ${fileName}")
 
         val fileReader = runBlocking {
             s3Client.getObject(GetObjectRequest.invoke {
