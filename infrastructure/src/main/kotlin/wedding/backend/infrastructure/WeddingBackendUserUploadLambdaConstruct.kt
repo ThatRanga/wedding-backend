@@ -21,7 +21,7 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
         val packagingInstructions = listOf(
             "/bin/sh",
             "-c",
-            "./gradlew -g \$PWD shadowJar " +
+            "./gradlew user-lambda:shadowJar " +
             "&& cp /asset-input/build/libs/user-lambda*.jar /asset-output/"
         )
 
@@ -42,7 +42,7 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
         val function = Function(this, "user-lambda", FunctionProps.builder()
             .role(executionRole)
             .runtime(Runtime.JAVA_17)
-            .code(Code.fromAsset("../user-lambda", AssetOptions.builder()
+            .code(Code.fromAsset("..", AssetOptions.builder()
                 .bundling(builderOptions)
                 .build()
             ))
