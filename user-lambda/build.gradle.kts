@@ -3,15 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.1"
-    kotlin("jvm") version "1.6.21" }
-
-group = "wedding.backend"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
-
-repositories {
-    mavenCentral()
+    id("wedding.backend.kotlin-application-conventions")
 }
+
+
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -21,17 +16,11 @@ dependencies {
     implementation("aws.sdk.kotlin:s3:0.16.0")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
 
 tasks.withType<ShadowJar> {
     exclude("org.apache.tomcat.embed:*")
+}
+
+application {
+    mainClass.set("wedding.backend.userlambda.UserLambdaHandler")
 }

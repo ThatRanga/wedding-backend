@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation("software.amazon.awscdk:aws-cdk-lib:2.74.0")
+    implementation("software.amazon.awscdk:aws-cdk-lib:2.88.0")
 }
 
 application {

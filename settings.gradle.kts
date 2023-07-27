@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "wedding-backend"
-include("app", "infrastructure")
+include("app", "infrastructure", "user-lambda")

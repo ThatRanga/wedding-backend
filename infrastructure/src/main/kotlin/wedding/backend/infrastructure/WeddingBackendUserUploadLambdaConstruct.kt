@@ -2,6 +2,7 @@ package wedding.backend.infrastructure
 
 import software.amazon.awscdk.BundlingOptions
 import software.amazon.awscdk.BundlingOutput
+import software.amazon.awscdk.DockerVolume
 import software.amazon.awscdk.Duration
 import software.amazon.awscdk.services.ec2.IVpc
 import software.amazon.awscdk.services.iam.IRole
@@ -26,13 +27,13 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
 
         val builderOptions = BundlingOptions.builder()
             .command(packagingInstructions)
-            .image(Runtime.JAVA_11.bundlingImage)
-//            .volumes(listOf(
-//                DockerVolume.builder()
-//                    .hostPath(System.getProperty("user.home") + "/.gradle/")
-//                    .containerPath("/root/.gradle/")
-//                    .build()
-//            ))
+            .image(Runtime.JAVA_17.bundlingImage)
+            .volumes(listOf(
+                DockerVolume.builder()
+                    .hostPath(System.getProperty("user.home") + "/.gradle/")
+                    .containerPath("/root/.gradle/")
+                    .build()
+            ))
             .user("root")
             .outputType(BundlingOutput.ARCHIVED)
             .build()
@@ -40,7 +41,7 @@ class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucke
 
         val function = Function(this, "user-lambda", FunctionProps.builder()
             .role(executionRole)
-            .runtime(Runtime.JAVA_11)
+            .runtime(Runtime.JAVA_17)
             .code(Code.fromAsset("../user-lambda", AssetOptions.builder()
                 .bundling(builderOptions)
                 .build()
