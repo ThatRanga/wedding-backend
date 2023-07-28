@@ -33,7 +33,13 @@ class WeddingBackendComputeConstruct(scope: Construct, vpc: IVpc, userQueue: Que
                                     listOf(
                                         PolicyStatement(
                                             PolicyStatementProps.builder()
-                                                .actions(listOf("sqs:SendMessage"))
+                                                .actions(
+                                                    listOf(
+                                                        "sqs:SendMessage",
+                                                        "sqs:DeleteMessage",
+                                                        "sqs:ChangeMessageVisibility"
+                                                    )
+                                                )
                                                 .effect(Effect.ALLOW)
                                                 .resources(
                                                     listOf(
