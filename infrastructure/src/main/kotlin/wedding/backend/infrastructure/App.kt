@@ -11,7 +11,7 @@ fun main() {
 
     val data = WeddingBackendDataStack(app, "prod-wedding-backend-data", "prod", getStackProps(terminationProtection = true))
 
-    WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, getStackProps())
+    WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, data.queue, getStackProps())
 
     WeddingBackendUserUploadStack(app, "prod-wedding-user-upload", "prod", network.vpc, data.queue, getStackProps())
 

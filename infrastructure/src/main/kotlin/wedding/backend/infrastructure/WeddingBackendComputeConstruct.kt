@@ -5,15 +5,14 @@ import software.amazon.awscdk.services.autoscaling.AutoScalingGroupProps
 import software.amazon.awscdk.services.autoscaling.HealthCheck
 import software.amazon.awscdk.services.ec2.*
 import software.amazon.awscdk.services.elasticloadbalancingv2.*
-import software.amazon.awscdk.services.iam.ManagedPolicy
-import software.amazon.awscdk.services.iam.Role
-import software.amazon.awscdk.services.iam.RoleProps
-import software.amazon.awscdk.services.iam.ServicePrincipal
+import software.amazon.awscdk.services.iam.*
+import software.amazon.awscdk.services.sqs.Queue
 import software.constructs.Construct
 import java.io.File
 
-class WeddingBackendComputeConstruct(scope: Construct, vpc: IVpc): Construct(scope, "compute") {
+class WeddingBackendComputeConstruct(scope: Construct, vpc: IVpc, userQueue: Queue) : Construct(scope, "compute") {
     val asg: AutoScalingGroup
+
     init {
         val role = Role(
             this,
@@ -24,6 +23,29 @@ class WeddingBackendComputeConstruct(scope: Construct, vpc: IVpc): Construct(sco
                         ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforAWSCodeDeploy"),
                         ManagedPolicy.fromAwsManagedPolicyName("CloudWatchAgentServerPolicy"),
                         ManagedPolicy.fromAwsManagedPolicyName("service-role/AmazonEC2RoleforSSM")
+                    )
+                )
+                .inlinePolicies(
+                    mapOf(
+                        "RecieveSQSMessage" to PolicyDocument(
+                            PolicyDocumentProps.builder()
+                                .statements(
+                                    listOf(
+                                        PolicyStatement(
+                                            PolicyStatementProps.builder()
+                                                .actions(listOf("sqs:SendMessage"))
+                                                .effect(Effect.ALLOW)
+                                                .resources(
+                                                    listOf(
+                                                        userQueue.queueArn
+                                                    )
+                                                )
+                                                .build()
+                                        )
+                                    )
+                                )
+                                .build()
+                        )
                     )
                 )
                 .build()

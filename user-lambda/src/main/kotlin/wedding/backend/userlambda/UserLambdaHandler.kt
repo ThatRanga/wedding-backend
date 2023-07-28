@@ -7,6 +7,7 @@ import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequest
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequestEntry
 import aws.smithy.kotlin.runtime.content.toByteArray
 import com.amazonaws.services.lambda.runtime.Context
+import com.amazonaws.services.lambda.runtime.LambdaLogger
 import com.amazonaws.services.lambda.runtime.RequestHandler
 import com.amazonaws.services.lambda.runtime.events.S3Event
 import com.google.gson.Gson
@@ -34,7 +35,7 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
 
         val userDetails = getDetailsFromFile(bucketName, fileName)
 
-        sendDetailsToQueue(userDetails)
+        sendDetailsToQueue(userDetails, logger)
     }
 
     private fun getDetailsFromFile(bucketName: String, key: String): List<UserDetails> {
@@ -55,10 +56,10 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
         }.toList()
     }
 
-    private fun sendDetailsToQueue(userDetails: List<UserDetails>) {
+    private fun sendDetailsToQueue(userDetails: List<UserDetails>, logger: LambdaLogger?) {
         userDetails.chunked(10).forEach { userDetailsBlock ->
             runBlocking {
-                sqsClient.sendMessageBatch(SendMessageBatchRequest.invoke {
+                val response = sqsClient.sendMessageBatch(SendMessageBatchRequest.invoke {
                     this.queueUrl = SQS_QUEUE_URL
                     this.entries = userDetailsBlock.map { userDetail ->
                         SendMessageBatchRequestEntry.invoke {
@@ -68,6 +69,7 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
                         }
                     }.toList()
                 })
+                logger?.log(response.toString())
             }
         }
     }

@@ -7,7 +7,14 @@ import software.amazon.awscdk.services.iam.*
 import software.amazon.awscdk.services.sqs.Queue
 import software.constructs.Construct
 
-class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, vpc: IVpc, userQueue: Queue, stackProps: StackProps) :
+class WeddingBackendUserUploadStack(
+    scope: Construct,
+    id: String,
+    env: String,
+    vpc: IVpc,
+    userQueue: Queue,
+    stackProps: StackProps
+) :
     Stack(scope, id, stackProps) {
     init {
         val bucket = WeddingBackendUserUploadS3Construct(this, env).bucket
@@ -25,24 +32,35 @@ class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, v
                                             PolicyStatementProps.builder()
                                                 .actions(listOf("s3:GetObject"))
                                                 .effect(Effect.ALLOW)
-                                                .resources(listOf(
-                                                    bucket.bucketArn,
-                                                    "${bucket.bucketArn}/*"
-                                                ))
-                                                .build()
-                                        ),
-                                        PolicyStatement(
-                                            PolicyStatementProps.builder()
-                                                .actions(listOf("sqs:SendMessage"))
-                                                .effect(Effect.ALLOW)
-                                                .resources(listOf(
-                                                    userQueue.queueArn
-                                                ))
+                                                .resources(
+                                                    listOf(
+                                                        bucket.bucketArn,
+                                                        "${bucket.bucketArn}/*"
+                                                    )
+                                                )
                                                 .build()
                                         )
                                     )
                                 )
                                 .build()
+                        ),
+                        "SendSQSMessage" to PolicyDocument(
+                            PolicyDocumentProps.builder()
+                                .statements(
+                                    listOf(
+                                        PolicyStatement(
+                                            PolicyStatementProps.builder()
+                                                .actions(listOf("sqs:SendMessage"))
+                                                .effect(Effect.ALLOW)
+                                                .resources(
+                                                    listOf(
+                                                        userQueue.queueArn
+                                                    )
+                                                )
+                                                .build()
+                                        )
+                                    )
+                                ).build()
                         )
                     )
                 )
@@ -62,10 +80,12 @@ class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, v
                     .actions(listOf("s3:GetObject"))
                     .effect(Effect.ALLOW)
                     .principals(listOf(ArnPrincipal(lambdaExecutionRole.roleArn)))
-                    .resources(listOf(
-                        bucket.bucketArn,
-                        "${bucket.bucketArn}/*"
-                    ))
+                    .resources(
+                        listOf(
+                            bucket.bucketArn,
+                            "${bucket.bucketArn}/*"
+                        )
+                    )
                     .build()
             )
 
