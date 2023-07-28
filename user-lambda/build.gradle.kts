@@ -11,9 +11,9 @@ plugins {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
-    implementation("aws.sdk.kotlin:sqs-jvm:0.16.0")
+    implementation("aws.sdk.kotlin:sqs:0.29.1-beta")
     implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
-    implementation("aws.sdk.kotlin:s3:0.16.0")
+    implementation("aws.sdk.kotlin:s3:0.29.1-beta")
 }
 
 
