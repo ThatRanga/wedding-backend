@@ -64,7 +64,6 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
                     this.entries = userDetailsBlock.map { userDetail ->
                         SendMessageBatchRequestEntry.invoke {
                             this.id = userDetail.username
-                            this.messageGroupId = userDetail.username
                             this.messageBody = gson.toJson(userDetail)
                         }
                     }.toList()
