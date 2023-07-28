@@ -9,7 +9,7 @@ fun main() {
 
     val network = WeddingBackendNetworkStack(app, "prod-wedding-backend-network", getStackProps())
 
-    WeddingBackendDataStack(app, "prod-wedding-backend-data", "prod", getStackProps(terminationProtection = true))
+    val data = WeddingBackendDataStack(app, "prod-wedding-backend-data", "prod", getStackProps(terminationProtection = true))
 
     WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, getStackProps())
 

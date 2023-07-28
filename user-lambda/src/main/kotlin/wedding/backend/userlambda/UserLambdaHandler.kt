@@ -40,9 +40,9 @@ class UserLambdaHandler : RequestHandler<S3Event, Unit> {
 
         fileReader.readLine() //headers
 
-        fileReader.lineSequence().forEach { line ->
+        val userDetails = fileReader.lineSequence().map { line ->
             val (username, password) = line.split(",", limit = 2)
-            println(username)
+            UserDetails(username, password)
         }
     }
 

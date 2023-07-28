@@ -4,9 +4,10 @@ import software.amazon.awscdk.Stack
 import software.amazon.awscdk.StackProps
 import software.amazon.awscdk.services.ec2.IVpc
 import software.amazon.awscdk.services.iam.*
+import software.amazon.awscdk.services.sqs.Queue
 import software.constructs.Construct
 
-class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, vpc: IVpc, stackProps: StackProps) :
+class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, vpc: IVpc, userQueue: Queue, stackProps: StackProps) :
     Stack(scope, id, stackProps) {
     init {
         val bucket = WeddingBackendUserUploadS3Construct(this, env).bucket
@@ -27,6 +28,15 @@ class WeddingBackendUserUploadStack(scope: Construct, id: String, env: String, v
                                                 .resources(listOf(
                                                     bucket.bucketArn,
                                                     "${bucket.bucketArn}/*"
+                                                ))
+                                                .build()
+                                        ),
+                                        PolicyStatement(
+                                            PolicyStatementProps.builder()
+                                                .actions(listOf("sqs:SendMessage"))
+                                                .effect(Effect.ALLOW)
+                                                .resources(listOf(
+                                                    userQueue.queueArn
                                                 ))
                                                 .build()
                                         )

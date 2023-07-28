@@ -1,8 +1,5 @@
 package wedding.backend.infrastructure
 
-import software.amazon.awscdk.BundlingOptions
-import software.amazon.awscdk.BundlingOutput
-import software.amazon.awscdk.DockerVolume
 import software.amazon.awscdk.Duration
 import software.amazon.awscdk.services.ec2.IVpc
 import software.amazon.awscdk.services.iam.IRole
@@ -13,7 +10,6 @@ import software.amazon.awscdk.services.lambda.eventsources.S3EventSourceProps
 import software.amazon.awscdk.services.logs.RetentionDays
 import software.amazon.awscdk.services.s3.Bucket
 import software.amazon.awscdk.services.s3.EventType
-import software.amazon.awscdk.services.s3.assets.AssetOptions
 import software.constructs.Construct
 
 class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucket: Bucket, executionRole: IRole): Construct(scope, "lambda")  {
