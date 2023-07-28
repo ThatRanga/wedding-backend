@@ -18,34 +18,10 @@ import software.constructs.Construct
 
 class WeddingBackendUserUploadLambdaConstruct(scope: Construct, vpc: IVpc, bucket: Bucket, executionRole: IRole): Construct(scope, "lambda")  {
     init {
-        val packagingInstructions = listOf(
-            "/bin/sh",
-            "-c",
-            "./gradlew user-lambda:shadowJar " +
-            "&& cp /asset-input/build/libs/user-lambda*.jar /asset-output/"
-        )
-
-        val builderOptions = BundlingOptions.builder()
-            .command(packagingInstructions)
-            .image(Runtime.JAVA_17.bundlingImage)
-            .volumes(listOf(
-                DockerVolume.builder()
-                    .hostPath(System.getProperty("user.home") + "/.gradle/")
-                    .containerPath("/root/.gradle/")
-                    .build()
-            ))
-            .user("root")
-            .outputType(BundlingOutput.ARCHIVED)
-            .build()
-
-
         val function = Function(this, "user-lambda", FunctionProps.builder()
             .role(executionRole)
             .runtime(Runtime.JAVA_17)
-            .code(Code.fromAsset("..", AssetOptions.builder()
-                .bundling(builderOptions)
-                .build()
-            ))
+            .code(Code.fromAsset("../user-lambda/build/libs/user-lambda-all.jar"))
             .environment(mapOf(
                 // Stop after C1 compilation
                 "JAVA_TOOL_OPTIONS" to "-XX:+TieredCompilation -XX:TieredStopAtLevel=1",

@@ -49,6 +49,9 @@ jobs:
       - name: Download dependencies
         run: |
           ./gradlew build
+      - name: Build lambda
+        run: |
+          ./gradlew user-lambda:shadowJar
       - name: CDK synth
         shell: bash
         run: |
@@ -95,6 +98,9 @@ jobs:
       - name: Download dependencies
         run: |
           ./gradlew build
+      - name: Build lambda
+        run: |
+          ./gradlew user-lambda:shadowJar
       - name: CDK synth
         shell: bash
         run: |
