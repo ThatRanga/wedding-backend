@@ -13,7 +13,7 @@ fun main() {
 
     WeddingBackendServerStack(app, "prod-wedding-backend-server", "prod", network.vpc, getStackProps())
 
-    WeddingBackendUserUploadStack(app, "prod-wedding-user-upload", "prod", network.vpc, getStackProps())
+    WeddingBackendUserUploadStack(app, "prod-wedding-user-upload", "prod", network.vpc, data.queue, getStackProps())
 
     app.synth()
 }
