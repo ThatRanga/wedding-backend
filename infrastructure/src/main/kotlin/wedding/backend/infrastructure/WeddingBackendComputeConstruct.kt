@@ -6,6 +6,8 @@ import software.amazon.awscdk.services.autoscaling.HealthCheck
 import software.amazon.awscdk.services.ec2.*
 import software.amazon.awscdk.services.elasticloadbalancingv2.*
 import software.amazon.awscdk.services.iam.*
+import software.amazon.awscdk.services.logs.LogGroup
+import software.amazon.awscdk.services.logs.LogGroupProps
 import software.amazon.awscdk.services.sqs.Queue
 import software.constructs.Construct
 import java.io.File
@@ -118,5 +120,10 @@ class WeddingBackendComputeConstruct(scope: Construct, vpc: IVpc, userQueue: Que
             .build()
 
         httpsListener.addTargets("target-group", applicationTargetProps)
+
+        LogGroup(this, "log-group", LogGroupProps.builder()
+            .logGroupName("wedding-backend-prod-logging")
+            .build()
+        )
     }
 }

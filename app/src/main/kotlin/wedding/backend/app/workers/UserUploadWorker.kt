@@ -39,9 +39,10 @@ class UserUploadWorker(
     @EventListener(classes = [ContextRefreshedEvent::class])
     @Order(2)
     fun start() = launch {
-            val messageChannel = Channel<Message>()
-            repeat(config.numWorkers) { launchWorker(messageChannel) }
-            launchMsgReceiver(messageChannel)
+        logger.info("Launching workers")
+        val messageChannel = Channel<Message>()
+        repeat(config.numWorkers) { launchWorker(messageChannel) }
+        launchMsgReceiver(messageChannel)
     }
 
 
