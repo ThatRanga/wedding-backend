@@ -4,10 +4,10 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.core.annotation.Order
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import wedding.backend.app.aws.DynamoService
 import wedding.backend.app.aws.KmsService
+import wedding.backend.app.aws.SqsService
 import wedding.backend.app.configuration.DynamoConfiguration
 import wedding.backend.app.configuration.KmsConfiguration
 import wedding.backend.app.model.Role
@@ -17,10 +17,10 @@ import wedding.backend.app.services.UserService
 class LocalStartupHelper(
     private val kmsService: KmsService,
     private val dynamoService: DynamoService,
-    private val passwordEncoder: PasswordEncoder,
     private val dynamoConfiguration: DynamoConfiguration,
     private val kmsConfiguration: KmsConfiguration,
-    private val userService: UserService
+    private val userService: UserService,
+    private val sqsService: SqsService
 ) {
 
     @EventListener(classes = [ContextRefreshedEvent::class], condition = "@environment.getProperty('app.bootstrap')")
@@ -29,6 +29,7 @@ class LocalStartupHelper(
         runBlocking {
             setupKms()
             setupDynamo()
+            setupSqs()
         }
     }
 
@@ -44,12 +45,18 @@ class LocalStartupHelper(
             userService.addUser(
                 "admin@admin.com",
                 "admin@admin.com",
-                passwordEncoder.encode("admin"),
+               "admin",
                 "The",
                 "Admin",
                 listOf(Role.ROLE_USER, Role.ROLE_ADMIN)
 
             )
+        }
+    }
+
+    private suspend fun setupSqs() {
+        if (!sqsService.queueExists("test-queue")) {
+            sqsService.createQueue("test-queue")
         }
     }
 

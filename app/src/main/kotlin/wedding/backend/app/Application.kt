@@ -1,10 +1,8 @@
 package wedding.backend.app
 
-import aws.sdk.kotlin.services.kms.KmsClient
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
@@ -19,9 +17,4 @@ fun main(args: Array<String>) {
 class MessageController {
 	@GetMapping("/")
 	fun index(@RequestParam("name", required = false, defaultValue = "anonymous") name: String) = "Hello there, $name!"
-
-//	@PostMapping("/login")
-//	fun login() {
-//		KmsClient.
-//	}
 }

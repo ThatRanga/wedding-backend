@@ -1,10 +1,7 @@
 package wedding.backend.app.aws
 
-import aws.sdk.kotlin.services.sqs.SqsClient
-import aws.sdk.kotlin.services.sqs.changeMessageVisibility
-import aws.sdk.kotlin.services.sqs.deleteMessage
+import aws.sdk.kotlin.services.sqs.*
 import aws.sdk.kotlin.services.sqs.model.Message
-import aws.sdk.kotlin.services.sqs.receiveMessage
 import org.springframework.stereotype.Service
 
 @Service
@@ -34,5 +31,20 @@ class SqsService(private val sqsClient: SqsClient) {
             receiptHandle = message.receiptHandle
             visibilityTimeout = timeout
         }
+    }
+
+    suspend fun createQueue(queueName: String) {
+        val queue = sqsClient.createQueue {
+            this.queueName = queueName
+        }
+        println(queue.queueUrl)
+    }
+
+    suspend fun queueExists(queueName: String): Boolean {
+        val queues = sqsClient.listQueues {
+            this.queueNamePrefix = queueName
+        }
+
+        return queues.queueUrls !== null && queues.queueUrls?.isNotEmpty() == true
     }
 }

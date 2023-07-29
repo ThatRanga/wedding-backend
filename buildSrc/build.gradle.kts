@@ -15,3 +15,9 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
 }
+
+configurations.all {
+    resolutionStrategy {
+        failOnVersionConflict()
+    }
+}

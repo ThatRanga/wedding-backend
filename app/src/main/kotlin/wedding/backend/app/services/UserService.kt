@@ -1,6 +1,7 @@
 package wedding.backend.app.services
 
 import kotlinx.coroutines.runBlocking
+import org.springframework.context.annotation.Lazy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import wedding.backend.app.aws.DynamoService
@@ -12,7 +13,7 @@ import wedding.backend.app.model.User
 class UserService(
     private val dynamoService: DynamoService,
     private val dynamoConfiguration: DynamoConfiguration,
-    private val passwordEncoder: PasswordEncoder,
+    @Lazy private val passwordEncoder: PasswordEncoder,
 ) {
 
     fun getUser(username: String): User {
